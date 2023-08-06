@@ -1,0 +1,181 @@
+.main-page {
+  font-family: var(--font-zopa);
+  color: #1D252A;
+}
+
+.main-page__line {
+  width:100%;
+  height: 3px;
+  margin: 40px 0;
+  background: #E4E4E2;
+}
+
+.main-page__info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--main-width);
+  margin: 0 auto;
+}
+
+.main-page__info-blocks {
+  display: flex;
+}
+
+.main-page__info-blocks > div {
+  display: flex;
+  margin-right: 20px;
+}
+
+.main-page__info-blocks > div:nth-child(4) {
+  margin: 0px;
+}
+
+.main-page__info-blocks > div > span {
+  margin-left: 10px;
+}
+
+.color-green {
+  color: #64AB3D;
+}
+
+.main-page__logo-container {
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.main-page__logo {
+  width: 48px;
+  margin-right: 10px;
+}
+
+.main-page__logo-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page__logo-text-primary {
+  font-size: 25px;
+}
+
+.main-page__logo-text-secondary {
+  font-size: 14px;
+  color: #EA862E;
+}
+
+.main-page__hero-container {
+  background-image: url('../../../images/pizza-background.jpg');
+  background-size: 100%;
+  color: #fff;
+}
+
+.main-page__hero-text {
+  line-height: 1.1;
+  font-size: 2.5rem;
+}
+
+.main-page__hero {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  height: 510px;
+  width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page__pizza-icon {
+  width: 100px;
+  margin-bottom: 18px;
+}
+
+.main-page__hero-button {
+  margin-top: 33px;
+  font-family: var(--font-oswald);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1.4rem;
+  border-radius: 5px;
+  border: 2.3px solid #fff;
+  padding: 9px 28px;
+}
+
+.main-page__hero-button:hover {
+  background: #fff;
+  color: #1D252A;
+  transition: 0.2s;
+}
+
+.main-page__hero-button:not(hover) {
+  transition: 0.2s;
+}
+
+.main-page__assortment-container {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.main-page__assortment-item {
+  display: flex;
+  transition: opacity ease .2s;
+}
+
+.main-page__assortment-item:hover {
+  opacity: 0.6;
+}
+
+.main-page__assortment-item > img {
+  object-fit: contain;
+}
+
+.main-page__assortment-item-text-container {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  margin-left: 20px;
+}
+
+.main-page__assortment-item-text-primary {
+  font-size: 1.7rem;
+  margin-top: 8px;
+}
+
+.main-page__assortment-item-text-secondary {
+  color: #595858;
+  margin-top: 12px;
+}
+
+.main-page__cakes-order-container {
+  background-image: url('../../../images/cake-background.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 40px 0;
+}
+
+.main-page__cakes-order-container > a {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  font-size: 2.5rem;
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 50px 0;
+  color: #fff;
+}
+
+.main-page__cakes-order-container > a:hover {
+  background: rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
+}
+
+.main-page__cakes-order-container > a:not(hover) {
+  transition: 0.2s;
+}

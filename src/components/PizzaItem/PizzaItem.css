@@ -1,0 +1,35 @@
+.pizza-item {
+  background: #FEFEFE;
+  display: flex;
+  color: #212121;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 31px 18px rgba(99, 99, 99, 0.2);
+  padding: 0 10px 20px;
+  width: 210px;
+  border-radius: 15px;
+  letter-spacing: 0.6px;
+}
+
+.pizza-item__image {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.pizza-item__name {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.pizza-item__location {
+  font-size: 14px;
+  color: #ACA2A3;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.pizza-item__price {
+  margin-top: 30px;
+}

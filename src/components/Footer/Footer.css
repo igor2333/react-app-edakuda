@@ -1,0 +1,76 @@
+.footer {
+  margin-top: 55px;
+  background: #1D252A;
+  color: #BCBEB8;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer-container {
+  max-width: var(--main-width);
+  margin: 0 auto;
+}
+
+.footer__links {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.footer__links-cafekontinent, .footer__links-instagram {
+  width: 615px;
+  height: 138px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  border: 2px solid #BCBEB8;
+}
+
+.footer__links-cafekontinent:hover, .footer__links-instagram:hover {
+  background: #fff;
+  color: #1D252A;
+  transition: 1.1s;
+  border: 2px solid #fff;
+}
+
+.footer__links-instagram {
+  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  color: #fff;
+}
+
+.footer__middle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__rights-text {
+  margin-left: 50px;
+  font-size: 14px;
+  width: 400px;
+}
+
+.footer__working-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-zopa);
+  width: 180px;
+}
+
+.footer__bottom-container {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__socials {
+  font-size: 25px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}

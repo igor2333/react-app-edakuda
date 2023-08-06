@@ -1,0 +1,37 @@
+.admin-header {
+  font-size: 25px;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,.12);
+  padding: 5px 0;
+  margin-bottom: 20px;
+}
+
+.admin-header__wrapper {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header__logo-container {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-zopa);
+}
+
+.admin-header-logo {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.admin-header__ul {
+  display: flex;
+}
+
+.admin-header__ul > li {
+  padding: 10px;
+}
+
+.admin-header__ul > li:hover {
+  text-decoration: underline;
+}
