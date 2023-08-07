@@ -1,0 +1,24 @@
+.back-arrow {
+  position: fixed;
+  margin-top: 100px;
+  margin-left: 24px;
+  top: 0;
+  font-size: 25px;
+  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  color: #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-arrow:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+.back-arrow:not(hover) {
+  transition: 0.2s;
+}

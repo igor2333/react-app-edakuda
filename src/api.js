@@ -9,6 +9,7 @@ import {
   updateDoc,
   deleteDoc,
   getDoc,
+  getCountFromServer,
 } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
@@ -80,6 +81,14 @@ export const apiUpdatePizza = async (id, data) => {
   }
 
   return null
+}
+
+export const apiGetPizzaCount = async () => {
+  const db = getFirestore()
+
+  const coll = collection(db, pizzaCollection)
+  const snapshot = await getCountFromServer(coll)
+  console.log('count: ', snapshot.data().count)
 }
 
 export const apiDeletePizza = async (id) => {

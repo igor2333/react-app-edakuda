@@ -1,8 +1,21 @@
 import React from 'react'
 import './AdminHeader.css'
 import { NavLink } from 'react-router-dom'
+import { LogoutOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
+import { useAuth } from '../../features/auth/AuthContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 export const AdminHeader = () => {
+  const { logOut } = useAuth()
+
+  const navigate = useNavigate()
+
+  const onLogoutClick = () => {
+    navigate('/login')
+    logOut()
+  }
+
   return (
     <div className="admin-header">
       <div className="admin-header__wrapper">
@@ -24,6 +37,14 @@ export const AdminHeader = () => {
             </li>
             <li>
               <NavLink>Суши</NavLink>
+            </li>
+            <li>
+              <Button
+                onClick={onLogoutClick}
+                style={{ marginLeft: '50px' }}
+                shape="circle"
+                icon={<LogoutOutlined />}
+              ></Button>
             </li>
           </ul>
         </nav>

@@ -26,6 +26,7 @@
 
 .admin-header__ul {
   display: flex;
+  align-items: center;
 }
 
 .admin-header__ul > li {

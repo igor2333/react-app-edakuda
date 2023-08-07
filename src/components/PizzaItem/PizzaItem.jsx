@@ -37,7 +37,6 @@ export const PizzaItem = ({
 
   const [sizeValue, setSizeValue] = useState(sizesOptions[0].value)
   const handleChangeValue = ({ target: { value } }) => {
-    console.log('radio4 checked', value)
     setSizeValue(value)
   }
 

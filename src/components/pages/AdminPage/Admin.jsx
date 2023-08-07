@@ -6,6 +6,8 @@ import { Space, Button } from 'antd'
 import { AdminHeader } from '../../AdminHeader/AdminHeader'
 import { Footer } from '../../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
+import { PageLoader } from '../../PageLoader/PageLoader'
+import { BackArrow } from '../../BackArrow/BackArrow'
 
 export const Admin = () => {
   const [pizzaData, setPizzaData] = useState(null)
@@ -36,23 +38,26 @@ export const Admin = () => {
             Создать новую пиццу
           </Button>
           <Space style={{ marginTop: '50px' }}>
-            {loading
-              ? ''
-              : pizzaData.map((pizza) => {
-                  return (
-                    <AdminItem
-                      key={pizza.id}
-                      image={pizza.image}
-                      documents={pizza.documents}
-                      manufacturer={pizza.manufacturer}
-                      name={pizza.name}
-                      id={pizza.id}
-                    />
-                  )
-                })}
+            {loading ? (
+              <PageLoader />
+            ) : (
+              pizzaData.map((pizza) => {
+                return (
+                  <AdminItem
+                    key={pizza.id}
+                    image={pizza.image}
+                    documents={pizza.documents}
+                    manufacturer={pizza.manufacturer}
+                    name={pizza.name}
+                    id={pizza.id}
+                  />
+                )
+              })
+            )}
           </Space>
         </div>
       </div>
+      <BackArrow />
       <Footer />
     </React.Fragment>
   )
