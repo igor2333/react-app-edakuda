@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './PizzaItem.css'
 import { Radio, Button } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
+import useSound from 'use-sound'
+import cash_sound from '../../sounds/cash_sound.mp3'
 
 export const PizzaItem = ({
   image,
@@ -40,6 +42,8 @@ export const PizzaItem = ({
     setSizeValue(value)
   }
 
+  const [playSound] = useSound(cash_sound, { volume: 0.15 })
+
   return (
     <div className="pizza-item">
       <img className="pizza-item__image" src={`${image}`} alt="pizza preview" />
@@ -56,7 +60,7 @@ export const PizzaItem = ({
         <span>{country}</span>
       </div>
       <div className="pizza-item__price">
-        <Button shape="round">
+        <Button onClick={playSound} shape="round">
           <span>{sizeValue}</span>
           <PlusCircleOutlined />
         </Button>

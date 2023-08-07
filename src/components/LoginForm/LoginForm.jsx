@@ -57,7 +57,6 @@ export const LoginForm = ({ email, password, onSubmit }) => {
             />
           </label>
           <div className="login-form__buttons-container">
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
               href="#"
               className="login-form__buttons-container__item"
