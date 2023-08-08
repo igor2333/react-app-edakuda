@@ -14,6 +14,7 @@
 .pizza-item__image {
   width: 100%;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .pizza-item__name {

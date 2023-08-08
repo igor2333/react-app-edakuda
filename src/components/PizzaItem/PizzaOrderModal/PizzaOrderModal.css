@@ -1,0 +1,49 @@
+.order-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-modal__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d5d5db;
+  width: 100%;
+}
+
+.order-modal__header-text {
+  margin-top: 12px;
+  font-weight: 500;
+  color: #79798f;
+  letter-spacing: 1.3px;
+  font-size: 16px;
+}
+
+.order-modal__order-options {
+  margin-top: 15px;
+}
+
+.submit-button_container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  background: linear-gradient(26deg, #56ab2f, #a8e063);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+  color: #fff;
+  padding: 16px;;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+.submit-button:not(hover) {
+  transition: 0.2s;
+}

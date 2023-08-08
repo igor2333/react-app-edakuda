@@ -16,7 +16,6 @@ export const PizzaPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { isAuthenticate } = useAuth()
-  console.log(isAuthenticate)
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -55,7 +54,7 @@ export const PizzaPage = () => {
             </Button>
           ) : null}
         </div>
-        <Space>
+        <Space wrap="true" size="large">
           {loading ? (
             <PageLoader />
           ) : (

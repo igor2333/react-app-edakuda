@@ -1,0 +1,41 @@
+.info-modal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-modal__image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.info-modal__image-text {
+  font-size: 30px;
+}
+
+.info-modal__image {
+  width: 100%;
+}
+
+.info-modal__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  width: 236px;
+  margin-bottom: 12px;
+}
+
+.info-block__heading {
+  font-weight: 500;
+}
+
+.info-block__content {
+  font-size: 11px;
+}
