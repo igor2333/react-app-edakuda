@@ -39,31 +39,6 @@
   color: #64AB3D;
 }
 
-.main-page__logo-container {
-  display: flex;
-  align-items: center;
-  padding: 30px 0;
-}
-
-.main-page__logo {
-  width: 48px;
-  margin-right: 10px;
-}
-
-.main-page__logo-text-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.main-page__logo-text-primary {
-  font-size: 25px;
-}
-
-.main-page__logo-text-secondary {
-  font-size: 14px;
-  color: #EA862E;
-}
-
 .main-page__hero-container {
   background-image: url('../../../images/pizza-background.jpg');
   background-size: 100%;
@@ -101,15 +76,12 @@
   border-radius: 5px;
   border: 2.3px solid #fff;
   padding: 9px 28px;
+  transition: all 0.2s;
 }
 
 .main-page__hero-button:hover {
   background: #fff;
   color: #1D252A;
-  transition: 0.2s;
-}
-
-.main-page__hero-button:not(hover) {
   transition: 0.2s;
 }
 
@@ -169,13 +141,10 @@
   border-radius: 5px;
   padding: 50px 0;
   color: #fff;
+  transition: all 0.2s;
 }
 
 .main-page__cakes-order-container > a:hover {
   background: rgba(0, 0, 0, 0.4);
-  transition: 0.2s;
-}
-
-.main-page__cakes-order-container > a:not(hover) {
   transition: 0.2s;
 }

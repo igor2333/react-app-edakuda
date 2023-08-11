@@ -15,7 +15,7 @@ export const PizzaPage = () => {
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { isAuthenticate } = useAuth()
+  const { isAuthenticated: isAuthenticate } = useAuth()
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -71,11 +71,7 @@ export const PizzaPage = () => {
                   mediumSizePrice={pizza.mediumSizePrice}
                   largeSize={pizza.largeSize}
                   largeSizePrice={pizza.largeSizePrice}
-                  manufacturer={pizza.manufacturer}
-                  country={pizza.country}
                   conditions={pizza.conditions}
-                  documents={pizza.documents}
-                  recommendations={pizza.recommendations}
                 />
               )
             })

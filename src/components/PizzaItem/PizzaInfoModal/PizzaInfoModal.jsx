@@ -7,13 +7,8 @@ import { PizzaOrderModal } from '../PizzaOrderModal/PizzaOrderModal'
 export const PizzaInfoModal = ({
   image,
   name,
-  sizesPerPrices,
   composition,
-  manufacturer,
-  country,
   conditions,
-  documents,
-  recommendations,
   showModal,
   onCancel,
   smallSize,
@@ -85,13 +80,15 @@ export const PizzaInfoModal = ({
                 </div>
                 <div className="info-block">
                   <span className="info-block__heading">Производитель:</span>
-                  <span className="info-block__content">{manufacturer}</span>
+                  <span className="info-block__content">
+                    ЧТПУП "ЭкономМаркет"
+                  </span>
                 </div>
                 <div className="info-block">
                   <span className="info-block__heading">
                     Страна производства:
                   </span>
-                  <span className="info-block__content">{country}</span>
+                  <span className="info-block__content">Беларусь</span>
                 </div>
                 <div className="info-block">
                   <span className="info-block__heading">
@@ -103,11 +100,13 @@ export const PizzaInfoModal = ({
                   <span className="info-block__heading">
                     Нормативные документы:
                   </span>
-                  <span className="info-block__content">{documents}</span>
+                  <span className="info-block__content">СТБ 1210-2010</span>
                 </div>
                 <div className="info-block">
                   <span className="info-block__heading">Рекомендации:</span>
-                  <span className="info-block__content">{recommendations}</span>
+                  <span className="info-block__content">
+                    Продукт готов к употреблению
+                  </span>
                 </div>
               </div>
               <Button

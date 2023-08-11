@@ -47,8 +47,33 @@ label {
   display: block;
 }
 
+input {
+  width: 100%;
+  padding: 4px 11px;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  background-color: #ffffff;
+  border-width: 1px;
+  color: rgba(0, 0, 0, 0.88);
+  margin: 0;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+  outline: 0;
+}
+
+input:hover {
+  border: 1px solid rgb(81, 124, 255);
+}
+
+input:focus {
+  border: 1px solid rgb(81, 124, 255);
+}
+
 .error {
   color: #ff0000;
-  font-size: 14px;
-  font-weight: bold;
+  font-family: var(--font-oswald);
+  position: absolute;
+  font-size: 15px;
 }

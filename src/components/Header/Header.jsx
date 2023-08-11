@@ -6,9 +6,9 @@ import { useAuth } from '../../features/auth/AuthContextProvider'
 import { PageLoader } from '../PageLoader/PageLoader'
 
 export const Header = () => {
-  const { isAuthenticate } = useAuth()
+  const { isAuthenticated, isUserLoading } = useAuth()
 
-  if (isAuthenticate === null) {
+  if (isUserLoading) {
     return <PageLoader />
   }
 
@@ -80,12 +80,12 @@ export const Header = () => {
           </ul>
         </nav>
         <NavLink
-          to={isAuthenticate ? '/admin/pizza' : '/login'}
+          to={isAuthenticated ? '/admin/pizza' : '/login'}
           className="header__user"
         >
           <UserOutlined style={{ fontSize: '28px', marginRight: '15px' }} />
           <span className="header__user-text">
-            {isAuthenticate ? 'Админ' : 'Войти на ЕдаКуда'}
+            {isAuthenticated ? 'Админ' : 'Войти на ЕдаКуда'}
           </span>
         </NavLink>
       </div>

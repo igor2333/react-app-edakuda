@@ -17,7 +17,13 @@
 }
 
 .login-form > label {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-form > label {
   display: flex;
 }
 
@@ -46,14 +52,11 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-oswald);
+  transition: all 0.2s;
 }
 
 .login-form__button:hover {
   background:#F4F4F2;
   color: #64ab3d;
-  transition: 0.2s;
-}
-
-.login-form__button:not(hover) {
   transition: 0.2s;
 }

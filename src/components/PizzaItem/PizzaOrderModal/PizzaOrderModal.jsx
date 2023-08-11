@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './PizzaOrderModal.css'
 import { Radio, Modal, Input, Form } from 'antd'
 import { EnvironmentOutlined } from '@ant-design/icons'
-import { apiOrderPizza } from '../../../api'
 
 export const PizzaOrderModal = ({
   showModal,

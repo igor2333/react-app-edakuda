@@ -9,6 +9,7 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
+import { Logo } from '../../Logo/Logo'
 
 export const MainPage = () => {
   return (
@@ -16,19 +17,7 @@ export const MainPage = () => {
       <Header />
       <div className="main-page">
         <div className="main-page__info-container">
-          <div className="main-page__logo-container">
-            <img
-              className="main-page__logo"
-              src={require('../../../images/logo.png')}
-              alt="logo"
-            />
-            <div className="main-page__logo-text-container">
-              <span className="main-page__logo-text-primary">ЕдаКуда.бел</span>
-              <span className="main-page__logo-text-secondary">
-                Вкусные посылки
-              </span>
-            </div>
-          </div>
+          <Logo />
           <div className="main-page__info-blocks">
             <div>
               <CarOutlined style={{ fontSize: '40px' }} />

@@ -11,7 +11,8 @@ import {
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 
 const authContext = createContext({
-  isAuthenticate: null,
+  isAuthenticated: false,
+  isUserLoading: true,
   user: null,
   loginWithEmailAndPassword: () => Promise.reject(null),
   loginWithPopup: () => Promise.reject(null),
@@ -25,19 +26,20 @@ export const ALLOWED_OAUTH_PROVIDERS = {
 export const useAuth = () => useContext(authContext)
 
 export const AuthContextProvider = ({ children, firebaseApp }) => {
-  const [isAuthenticate, setIsAuthenticate] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
+  const [isUserLoading, setIsUserLoading] = useState(true)
   const [user, setUser] = useState(null)
   const [auth] = useState(getAuth(firebaseApp))
 
   const loginWithEmailAndPassword = (email, password) => {
     setUser(null)
-    setIsAuthenticate(null)
+    setIsAuthenticated(null)
     return signInWithEmailAndPassword(auth, email, password)
   }
 
   const loginWithPopup = (provider) => {
     setUser(null)
-    setIsAuthenticate(null)
+    setIsAuthenticated(null)
     return signInWithPopup(auth, ALLOWED_OAUTH_PROVIDERS[provider])
   }
 
@@ -55,16 +57,20 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
       if (user) {
         isUserAdmin(firebaseApp)
           .then(() => {
-            setIsAuthenticate(true)
+            setIsAuthenticated(true)
             setUser(user)
           })
           .catch((error) => {
             logOut()
-            setIsAuthenticate(false)
+            setIsAuthenticated(false)
             setUser(null)
           })
+          .finally(() => {
+            setIsUserLoading(false)
+          })
       } else {
-        setIsAuthenticate(false)
+        setIsAuthenticated(false)
+        setIsUserLoading(false)
         setUser(null)
       }
     })
@@ -74,7 +80,8 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
   return (
     <authContext.Provider
       value={{
-        isAuthenticate,
+        isAuthenticated: isAuthenticated,
+        isUserLoading: isUserLoading,
         user,
         loginWithEmailAndPassword,
         logOut,

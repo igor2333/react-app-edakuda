@@ -6,6 +6,7 @@ import {
   ClockCircleOutlined,
   FacebookOutlined,
 } from '@ant-design/icons'
+import { Logo } from '../Logo/Logo'
 
 export const Footer = () => {
   return (
@@ -28,28 +29,13 @@ export const Footer = () => {
           </a>
         </div>
         <div className="footer__middle-container">
-          <div className="main-page__logo-container">
-            <img
-              className="main-page__logo"
-              src={require('../../images/logo.png')}
-              alt="logo"
-            />
-            <div
-              style={{ fontFamily: 'var(--font-zopa)' }}
-              className="main-page__logo-text-container"
-            >
-              <span className="main-page__logo-text-primary">ЕдаКуда.бел</span>
-              <span className="main-page__logo-text-secondary">
-                Вкусные посылки
-              </span>
-            </div>
-            <div className="footer__rights-text">
-              <p>
-                Все права защищены. Все права на материалы, находящиеся на
-                сайте, охраняются в соответствии с законодательством РБ, в том
-                числе об авторском праве и смежных правах.
-              </p>
-            </div>
+          <Logo />
+          <div className="footer__rights-text">
+            <p>
+              Все права защищены. Все права на материалы, находящиеся на сайте,
+              охраняются в соответствии с законодательством РБ, в том числе об
+              авторском праве и смежных правах.
+            </p>
           </div>
           <div className="footer__working-time">
             <ClockCircleOutlined

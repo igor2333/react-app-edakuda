@@ -12,11 +12,7 @@ export const PizzaItem = ({
   name,
   sizesPerPrices,
   composition,
-  manufacturer,
-  country,
   conditions,
-  documents,
-  recommendations,
   smallSize,
   smallSizePrice,
   mediumSize,
@@ -84,7 +80,7 @@ export const PizzaItem = ({
         />
         <div className="pizza-item__location">
           <span>Новый континент</span>
-          <span>{country}</span>
+          <span>Беларусь</span>
         </div>
         <div className="pizza-item__price">
           <Button onClick={showOrderModal} shape="round">
@@ -102,8 +98,6 @@ export const PizzaItem = ({
       />
       <PizzaInfoModal
         composition={composition}
-        manufacturer={manufacturer}
-        country={country}
         smallSize={smallSize}
         smallSizePrice={smallSizePrice}
         mediumSize={mediumSize}
@@ -113,8 +107,6 @@ export const PizzaItem = ({
         conditions={conditions}
         name={name}
         sizesPerPrices={sizesPerPrices}
-        documents={documents}
-        recommendations={recommendations}
         image={image}
         showModal={isModalInfoShown}
         onCancel={handleInfoCancel}

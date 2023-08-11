@@ -20,6 +20,7 @@
   height: 51px;
   display: flex;
   align-items: center;
+  transition: all 0.2s;
 }
 
 .header__ul > li:hover {
@@ -27,9 +28,6 @@
   transition: 0.2s;
 }
 
-.header__ul > li:not(hover) {
-  transition: 0.2s;
-}
 
 .header__active-link {
   background: #343B40;

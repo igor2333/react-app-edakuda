@@ -37,7 +37,7 @@ export const Admin = () => {
           >
             Создать новую пиццу
           </Button>
-          <Space style={{ marginTop: '50px' }}>
+          <Space wrap="true" style={{ marginTop: '50px' }}>
             {loading ? (
               <PageLoader />
             ) : (
@@ -46,8 +46,6 @@ export const Admin = () => {
                   <AdminItem
                     key={pizza.id}
                     image={pizza.image}
-                    documents={pizza.documents}
-                    manufacturer={pizza.manufacturer}
                     name={pizza.name}
                     id={pizza.id}
                   />

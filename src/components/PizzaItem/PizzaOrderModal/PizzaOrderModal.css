@@ -37,13 +37,10 @@
   padding: 16px;;
   border-radius: 50px;
   font-weight: 600;
+  transition: all 0.2s;
 }
 
 .submit-button:hover {
   transform: scale(1.05);
-  transition: 0.2s;
-}
-
-.submit-button:not(hover) {
   transition: 0.2s;
 }
