@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Admin.css'
-import { apiGetPizza } from '../../../api'
+import { apiGetAll } from '../../../api'
 import { AdminItem } from '../../AdminItem/AdminItem'
 import { Space, Button } from 'antd'
 import { AdminHeader } from '../../AdminHeader/AdminHeader'
@@ -16,7 +16,7 @@ export const Admin = () => {
 
   useEffect(() => {
     setLoading(true)
-    apiGetPizza()
+    apiGetAll('pizza')
       .then((pizza) => {
         setPizzaData(pizza)
       })

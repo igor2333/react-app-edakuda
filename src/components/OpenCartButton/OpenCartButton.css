@@ -1,0 +1,24 @@
+.open-cart-button {
+  width: 40px;
+  height: 50px;
+  position: fixed;
+  cursor: pointer;
+  margin: 30px;
+  right: 0;
+}
+
+.open-cart-button__count {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #FF6498;
+  border: 3px solid #FFFFF5;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

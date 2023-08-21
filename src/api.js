@@ -8,6 +8,7 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  setDoc,
   getDoc,
   getCountFromServer,
 } from 'firebase/firestore'
@@ -30,11 +31,9 @@ export const initializeAPI = () => {
   return firebaseApp
 }
 
-const pizzaCollection = 'pizza'
-
-export const apiGetPizza = async () => {
+export const apiGetAll = async (collectionName) => {
   const dataBase = getFirestore()
-  const querySnapshot = await getDocs(collection(dataBase, pizzaCollection))
+  const querySnapshot = await getDocs(collection(dataBase, collectionName))
   const pizza = []
 
   querySnapshot.forEach((doc) => {
@@ -47,17 +46,16 @@ export const apiGetPizza = async () => {
   return pizza
 }
 
-export const apiGetSinglePizza = async (id) => {
+export const apiGetSingle = async (id, collectionName) => {
   const dataBase = getFirestore()
 
   try {
-    const querySnapshot = await getDoc(doc(dataBase, pizzaCollection, id))
+    const querySnapshot = await getDoc(doc(dataBase, collectionName, id))
 
     if (querySnapshot.exists()) {
       const data = querySnapshot.data()
 
       return {
-        id: querySnapshot.id,
         ...data,
       }
     }
@@ -66,12 +64,12 @@ export const apiGetSinglePizza = async (id) => {
   }
 }
 
-export const apiUpdatePizza = async (id, data) => {
+export const apiUpdate = async (id, data, collectionName) => {
   const dataBase = getFirestore()
 
   try {
-    await updateDoc(doc(dataBase, pizzaCollection, id), { ...data })
-    const updatedDoc = apiGetSinglePizza(id)
+    await updateDoc(doc(dataBase, collectionName, id), { ...data })
+    const updatedDoc = apiGetSingle(id, collectionName)
 
     if (doc !== null) {
       return updatedDoc
@@ -83,29 +81,22 @@ export const apiUpdatePizza = async (id, data) => {
   return null
 }
 
-export const apiGetPizzaCount = async () => {
-  const db = getFirestore()
-
-  const coll = collection(db, pizzaCollection)
-  const snapshot = await getCountFromServer(coll)
-  console.log('count: ', snapshot.data().count)
-}
-
-export const apiDeletePizza = async (id) => {
+export const apiDelete = async (id, collectionName) => {
   const dataBase = getFirestore()
 
   try {
-    await deleteDoc(doc(dataBase, pizzaCollection, id))
+    await deleteDoc(doc(dataBase, collectionName, id))
   } catch (error) {
     throw new Error(error)
   }
 }
 
-export const apiCreatePizza = async (data) => {
+export const apiCreate = async (data, collectionName, id) => {
   const dataBase = getFirestore()
+  const docRef = doc(dataBase, collectionName, id)
 
   try {
-    await addDoc(collection(dataBase, pizzaCollection), data)
+    await setDoc(docRef, data)
   } catch (error) {
     throw new Error(error)
   }
@@ -122,4 +113,12 @@ export const uploadFile = async (file) => {
   } catch (error) {
     return Promise.reject(error)
   }
+}
+
+export const apiGetCount = async (collectionName) => {
+  const db = getFirestore()
+
+  const coll = collection(db, collectionName)
+  const snapshot = await getCountFromServer(coll)
+  return snapshot.data().count
 }

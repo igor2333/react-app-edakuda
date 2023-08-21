@@ -34,3 +34,20 @@
 .pizza-item__price {
   margin-top: 30px;
 }
+
+.pizza-item__img-container {
+  position: relative;
+}
+
+.added-text {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+}

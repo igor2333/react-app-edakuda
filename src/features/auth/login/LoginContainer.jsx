@@ -44,7 +44,9 @@ export const LoginContainer = () => {
           navigate('/admin/pizza')
         })
         .catch((error) => {
-          throw new Error(error)
+          notification.error({
+            message: error.message,
+          })
         })
     }
   }

@@ -6,7 +6,7 @@ import { useAuth } from '../../features/auth/AuthContextProvider'
 import { PageLoader } from '../PageLoader/PageLoader'
 
 export const Header = () => {
-  const { isAuthenticated, isUserLoading } = useAuth()
+  const { isAuthenticated, user, isUserLoading } = useAuth()
 
   if (isUserLoading) {
     return <PageLoader />
@@ -62,16 +62,6 @@ export const Header = () => {
                 className={({ isActive }) =>
                   isActive ? 'header__active-link' : ''
                 }
-                to="/delivery"
-              >
-                Доставка
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'header__active-link' : ''
-                }
                 to="/about"
               >
                 О нас
@@ -83,9 +73,15 @@ export const Header = () => {
           to={isAuthenticated ? '/admin/pizza' : '/login'}
           className="header__user"
         >
-          <UserOutlined style={{ fontSize: '28px', marginRight: '15px' }} />
+          <UserOutlined style={{ fontSize: '28px', marginRight: '5px' }} />
           <span className="header__user-text">
-            {isAuthenticated ? 'Админ' : 'Войти на ЕдаКуда'}
+            {isAuthenticated ? (
+              <span style={{ fontFamily: 'var(--font-oswald)' }}>
+                {user.email}
+              </span>
+            ) : (
+              'Войти'
+            )}
           </span>
         </NavLink>
       </div>

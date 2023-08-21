@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './AdminItemPage.css'
 import { useParams } from 'react-router-dom'
 import {
-  apiGetSinglePizza,
+  apiGetSingle,
   uploadFile,
-  apiUpdatePizza,
-  apiCreatePizza,
-  apiDeletePizza,
+  apiUpdate,
+  apiCreate,
+  apiDelete,
 } from '../../../api'
 import { AdminHeader } from '../../AdminHeader/AdminHeader'
 import { Modal, notification } from 'antd'
@@ -14,6 +14,7 @@ import { Footer } from '../../Footer/Footer'
 import { getImage } from './utils'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import uniqueid from 'uniqid'
 
 export const AdminItemPage = () => {
   const params = useParams()
@@ -35,18 +36,20 @@ export const AdminItemPage = () => {
     if (imageInputError !== '') {
       return
     }
+    const id = uniqueid()
 
     data.image = imageUrl
+    data.id = id
 
     if (params.pizzaId) {
-      apiUpdatePizza(params.pizzaId, data).then(() => {
+      apiUpdate(params.pizzaId, data, 'pizza').then(() => {
         notification.success({
           message: 'Пицца успешно обновлена',
         })
         navigate('/admin/pizza')
       })
     } else {
-      apiCreatePizza(data).then(() => {
+      apiCreate(data, 'pizza', id).then(() => {
         notification.success({
           message: 'Пицца успешно создана',
         })
@@ -89,7 +92,7 @@ export const AdminItemPage = () => {
       cancelText: 'Отмена',
       okText: 'Удалить',
       onOk() {
-        apiDeletePizza(params.pizzaId).then(() => {
+        apiDelete(params.pizzaId, 'pizza').then(() => {
           navigate('/admin/pizza')
         })
         notification.success({
@@ -104,7 +107,7 @@ export const AdminItemPage = () => {
       return
     }
 
-    apiGetSinglePizza(params.pizzaId).then((data) => {
+    apiGetSingle(params.pizzaId, 'pizza').then((data) => {
       reset(data)
       setImageUrl(data.image)
       setImageInputError('')
@@ -160,8 +163,9 @@ export const AdminItemPage = () => {
             <h3>Размеры и цена:</h3>
             <div>
               <label>
-                Вес маленького размера:
+                Вес маленького размера (грамм):
                 <input
+                  type="number"
                   {...register('smallSize', { required: true })}
                   aria-invalid={errors.smallSize ? 'true' : 'false'}
                 />
@@ -174,6 +178,7 @@ export const AdminItemPage = () => {
               <label>
                 Цена за маленький размер:
                 <input
+                  type="number"
                   {...register('smallSizePrice', { required: true })}
                   aria-invalid={errors.smallSizePrice ? 'true' : 'false'}
                 />
@@ -186,8 +191,9 @@ export const AdminItemPage = () => {
             </div>
             <div>
               <label>
-                Вес среднего размера:
+                Вес среднего размера (грамм):
                 <input
+                  type="number"
                   {...register('mediumSize', { required: true })}
                   aria-invalid={errors.mediumSize ? 'true' : 'false'}
                 />
@@ -200,6 +206,7 @@ export const AdminItemPage = () => {
               <label>
                 Цена за средний размер:
                 <input
+                  type="number"
                   {...register('mediumSizePrice', { required: true })}
                   aria-invalid={errors.mediumSize ? 'true' : 'false'}
                 />
@@ -212,8 +219,9 @@ export const AdminItemPage = () => {
             </div>
             <div>
               <label>
-                Вес большого размера:
+                Вес большого размера (грамм):
                 <input
+                  type="number"
                   {...register('largeSize', { required: true })}
                   aria-invalid={errors.largeSize ? 'true' : 'false'}
                 />
@@ -226,6 +234,7 @@ export const AdminItemPage = () => {
               <label>
                 Цена за большой размер:
                 <input
+                  type="number"
                   {...register('largeSizePrice', { required: true })}
                   aria-invalid={errors.largeSize ? 'true' : 'false'}
                 />

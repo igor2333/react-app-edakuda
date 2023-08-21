@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { Modal, Radio, Button } from 'antd'
+import { Modal, Radio, Button, notification } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import './PizzaInfoModal.css'
-import { PizzaOrderModal } from '../PizzaOrderModal/PizzaOrderModal'
+import uniqueid from 'uniqid'
+import { apiCreate } from '../../../api'
+import { useAuth } from '../../../features/auth/AuthContextProvider'
+import { useCart } from '../../../store/CartContextProvider'
 
 export const PizzaInfoModal = ({
   image,
@@ -20,36 +23,61 @@ export const PizzaInfoModal = ({
 }) => {
   const sizesOptions = [
     {
-      label: smallSize,
+      label: `${smallSize}г`,
       value: smallSizePrice,
     },
     {
-      label: mediumSize,
+      label: `${mediumSize}г`,
       value: mediumSizePrice,
     },
     {
-      label: largeSize,
+      label: `${largeSize}г`,
       value: largeSizePrice,
     },
   ]
 
-  const [sizeValue, setSizeValue] = useState(sizesOptions[0].value)
-  const [isModalOrderShown, setIsModalOrderShown] = useState(false)
-  const showOrderModal = () => {
-    setIsModalOrderShown(true)
+  const [price, setPrice] = useState(sizesOptions[0].value)
+
+  const handleChangeValue = ({ target: { value } }) => {
+    setPrice(value)
   }
 
   const getSize = (collection) => {
-    const filter = collection.filter((obj) => {
-      return obj.value === sizeValue
+    const filtered = collection.filter((obj) => {
+      return obj.value === price
     })
 
-    return filter[0].label
+    return filtered[0].label
+  }
+  const size = Number(getSize(sizesOptions).slice(0, -1))
+
+  console.log(size)
+
+  const { user, cartCount, setCartCount } = useAuth()
+  const { setCartProducts, cartProducts } = useCart()
+
+  const addToCart = () => {
+    const id = uniqueid()
+
+    const data = {
+      productName: name,
+      productSize: size,
+      productPrice: price,
+      productImage: image,
+      user: user.email,
+      id: id,
+    }
+
+    apiCreate(data, 'cart', id).then(() => {
+      setCartProducts([...cartProducts, data])
+      setCartCount(cartCount + 1)
+      notification.success({
+        message: 'Товар успешно добавлен в корзину',
+        placement: 'bottomRight',
+      })
+    })
   }
 
-  const handleChangeValue = ({ target: { value } }) => {
-    setSizeValue(value)
-  }
   return (
     <React.Fragment>
       <div className="pizza-info">
@@ -67,11 +95,10 @@ export const PizzaInfoModal = ({
             <div>
               <div className="info-modal__info">
                 <Radio.Group
-                  style={{ marginBottom: '15px' }}
                   options={sizesOptions}
                   optionType="button"
                   buttonStyle="solid"
-                  value={sizeValue}
+                  value={price}
                   onChange={handleChangeValue}
                 />
                 <div className="info-block">
@@ -111,26 +138,19 @@ export const PizzaInfoModal = ({
               </div>
               <Button
                 onClick={() => {
-                  showOrderModal()
+                  addToCart()
                   onCancel()
                 }}
                 style={{ marginTop: '15px', float: 'right' }}
                 shape="round"
               >
-                <span>{sizeValue}</span>
+                <span>{price}р.</span>
                 <PlusCircleOutlined />
               </Button>
             </div>
           </div>
         </Modal>
       </div>
-      <PizzaOrderModal
-        showModal={isModalOrderShown}
-        onCancel={() => setIsModalOrderShown(false)}
-        pizzaPrice={sizeValue}
-        pizzaSize={getSize(sizesOptions)}
-        name={name}
-      />
     </React.Fragment>
   )
 }

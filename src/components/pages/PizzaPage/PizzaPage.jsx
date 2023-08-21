@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './PizzaPage.css'
 import { Header } from '../../Header/Header'
 import { Footer } from '../../Footer/Footer'
 import { PizzaItem } from '../../PizzaItem/PizzaItem'
-import { apiGetPizza } from '../../../api'
+import { apiGetAll } from '../../../api'
 import { Space, Button, Modal } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { PageLoader } from '../../PageLoader/PageLoader'
 import { useAuth } from '../../../features/auth/AuthContextProvider'
+import { ProductsCartModal } from '../../ProductsCartModal/ProductsCartModal'
+import { OpenCartButton } from '../../OpenCartButton/OpenCartButton'
 
 export const PizzaPage = () => {
   const [pizzaData, setPizzaData] = useState(null)
@@ -29,7 +31,7 @@ export const PizzaPage = () => {
 
   useEffect(() => {
     setLoading(true)
-    apiGetPizza()
+    apiGetAll('pizza')
       .then((pizza) => {
         setPizzaData(pizza)
       })
@@ -38,9 +40,16 @@ export const PizzaPage = () => {
       })
   }, [])
 
+  const [showCartModal, setShowCartModal] = useState(false)
+
+  const handleCartModalCancel = () => {
+    setShowCartModal(false)
+  }
+
   return (
     <React.Fragment>
       <Header />
+      <OpenCartButton onClick={() => setShowCartModal(true)} />
       <div className="pizza-page">
         <div>
           {isAuthenticate ? (
@@ -62,6 +71,7 @@ export const PizzaPage = () => {
               return (
                 <PizzaItem
                   key={pizza.id}
+                  id={pizza.id}
                   image={pizza.image}
                   name={pizza.name}
                   composition={pizza.composition}
@@ -79,6 +89,10 @@ export const PizzaPage = () => {
         </Space>
       </div>
       <Footer />
+      <ProductsCartModal
+        showModal={showCartModal}
+        onCancel={handleCartModalCancel}
+      />
       <Modal
         open={isModalOpen}
         onCancel={handleCancel}

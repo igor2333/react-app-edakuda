@@ -9,10 +9,12 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
+import { apiGetAll } from '../../api'
 
 const authContext = createContext({
   isAuthenticated: false,
   isUserLoading: true,
+  cartCount: null,
   user: null,
   loginWithEmailAndPassword: () => Promise.reject(null),
   loginWithPopup: () => Promise.reject(null),
@@ -29,6 +31,7 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
   const [isUserLoading, setIsUserLoading] = useState(true)
   const [user, setUser] = useState(null)
+  const [cartCount, setCartCount] = useState(0)
   const [auth] = useState(getAuth(firebaseApp))
 
   const loginWithEmailAndPassword = (email, password) => {
@@ -55,6 +58,14 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
     auth.setPersistence(browserLocalPersistence)
     auth.onAuthStateChanged((user) => {
       if (user) {
+        apiGetAll('cart').then((data) => {
+          const filterByUser = data.filter((obj) => {
+            return obj.user === user.email
+          })
+
+          setCartCount(filterByUser.length)
+        })
+
         isUserAdmin(firebaseApp)
           .then(() => {
             setIsAuthenticated(true)
@@ -82,6 +93,8 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
       value={{
         isAuthenticated: isAuthenticated,
         isUserLoading: isUserLoading,
+        setCartCount: (count) => setCartCount(count),
+        cartCount: cartCount,
         user,
         loginWithEmailAndPassword,
         logOut,

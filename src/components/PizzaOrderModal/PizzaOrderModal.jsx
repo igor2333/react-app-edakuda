@@ -28,6 +28,7 @@ export const PizzaOrderModal = ({
       price: pizzaPrice,
       pizzaSize: pizzaSize,
       pizzaName: name,
+      orderOption: checkedOrderOption,
       data: new Date(),
     }
 
@@ -158,7 +159,7 @@ export const PizzaOrderModal = ({
             name="comment"
             rules={[{ required: false }]}
           >
-            <Input type="text" />
+            <Input />
           </Form.Item>
         </Form>
       </div>

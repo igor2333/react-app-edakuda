@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import './PizzaItem.css'
-import { Radio, Button } from 'antd'
+import { Radio, Button, notification } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import useSound from 'use-sound'
-import cash_sound from '../../sounds/cash_sound.mp3'
-import { PizzaOrderModal } from './PizzaOrderModal/PizzaOrderModal'
 import { PizzaInfoModal } from './PizzaInfoModal/PizzaInfoModal'
+import { apiCreate } from '../../api'
+import { useAuth } from '../../features/auth/AuthContextProvider'
+import { useCart } from '../../store/CartContextProvider'
+import uniqueid from 'uniqid'
 
 export const PizzaItem = ({
   image,
@@ -22,60 +23,81 @@ export const PizzaItem = ({
 }) => {
   const sizesOptions = [
     {
-      label: smallSize,
+      label: `${smallSize}г`,
       value: smallSizePrice,
     },
     {
-      label: mediumSize,
+      label: `${mediumSize}г`,
       value: mediumSizePrice,
     },
     {
-      label: largeSize,
+      label: `${largeSize}г`,
       value: largeSizePrice,
     },
   ]
 
-  const [sizeValue, setSizeValue] = useState(sizesOptions[0].value)
+  const { user, cartCount, setCartCount } = useAuth()
+  const { setCartProducts, cartProducts } = useCart()
+
+  const [price, setPrice] = useState(sizesOptions[0].value)
 
   const handleChangeValue = ({ target: { value } }) => {
-    setSizeValue(value)
+    setPrice(value)
   }
 
   const getSize = (collection) => {
-    const filter = collection.filter((obj) => {
-      return obj.value === sizeValue
+    const filtered = collection.filter((obj) => {
+      return obj.value === price
     })
 
-    return filter[0].label
+    return filtered[0].label
   }
 
-  const [playSound] = useSound(cash_sound, { volume: 0.15 })
+  const size = Number(getSize(sizesOptions).slice(0, -1))
 
   const [isModalInfoShown, setIsModalInfoShown] = useState(false)
-  const [isModalOrderShown, setIsModalOrderShown] = useState(false)
 
-  const showOrderModal = () => {
-    setIsModalOrderShown(true)
-    playSound()
+  const addToCart = () => {
+    const id = uniqueid()
+
+    const data = {
+      productName: name,
+      productSize: size,
+      productPrice: price,
+      productImage: image,
+      user: user.email,
+      id: id,
+    }
+
+    apiCreate(data, 'cart', id).then(() => {
+      setCartProducts([...cartProducts, data])
+      setCartCount(cartCount + 1)
+      notification.success({
+        message: 'Товар успешно добавлен в корзину',
+        placement: 'bottomRight',
+      })
+    })
   }
-  const handleCancel = () => setIsModalOrderShown(false)
+
   const handleInfoCancel = () => setIsModalInfoShown(false)
 
   return (
     <React.Fragment>
       <div className="pizza-item">
-        <img
-          className="pizza-item__image"
-          onClick={() => setIsModalInfoShown(true)}
-          src={`${image}`}
-          alt="pizza preview"
-        />
+        <div className="pizza-item__img-container">
+          <img
+            className="pizza-item__image"
+            onClick={() => setIsModalInfoShown(true)}
+            src={`${image}`}
+            alt="pizza preview"
+          />
+        </div>
         <span className="pizza-item__name">{name}</span>
         <Radio.Group
           options={sizesOptions}
           optionType="button"
           buttonStyle="solid"
-          value={sizeValue}
+          value={price}
           onChange={handleChangeValue}
         />
         <div className="pizza-item__location">
@@ -83,19 +105,17 @@ export const PizzaItem = ({
           <span>Беларусь</span>
         </div>
         <div className="pizza-item__price">
-          <Button onClick={showOrderModal} shape="round">
-            <span>{sizeValue}</span>
+          <Button
+            onClick={() => {
+              addToCart()
+            }}
+            shape="round"
+          >
+            <span>{price}р.</span>
             <PlusCircleOutlined />
           </Button>
         </div>
       </div>
-      <PizzaOrderModal
-        showModal={isModalOrderShown}
-        onCancel={handleCancel}
-        pizzaPrice={sizeValue}
-        pizzaSize={getSize(sizesOptions)}
-        name={name}
-      />
       <PizzaInfoModal
         composition={composition}
         smallSize={smallSize}
