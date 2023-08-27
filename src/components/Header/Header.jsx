@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import { NavLink } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons'
-import { useAuth } from '../../features/auth/AuthContextProvider'
+import { useAuth } from '../../features/auth/ContextProvider'
 import { PageLoader } from '../PageLoader/PageLoader'
 
 export const Header = () => {
@@ -35,26 +35,6 @@ export const Header = () => {
                 to="/pizza"
               >
                 Пицца
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'header__active-link' : ''
-                }
-                to="/rolls"
-              >
-                Суши
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'header__active-link' : ''
-                }
-                to="/cakes"
-              >
-                Торты
               </NavLink>
             </li>
             <li>

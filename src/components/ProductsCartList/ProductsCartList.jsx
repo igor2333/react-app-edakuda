@@ -1,73 +1,75 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { CartItem } from '../CartItem/CartItem'
-import { apiGetAll } from '../../api'
-import { Space } from 'antd'
+import { Space, Button } from 'antd'
 import { PageLoader } from '../PageLoader/PageLoader'
-import { useAuth } from '../../features/auth/AuthContextProvider'
-import { useCart } from '../../store/CartContextProvider'
+import { useAuth } from '../../features/auth/ContextProvider'
+import { PizzaOrderModal } from '../PizzaOrderModal/PizzaOrderModal'
 import './ProductsCartList.css'
 
 export const ProductsCartList = () => {
-  const [loading, setLoading] = useState(true)
+  const [isOrderModalShown, setIsOrderModalShown] = useState(false)
 
-  const { cartProducts, setCartProducts } = useCart()
+  const { cart, isUserLoading } = useAuth()
   const { user } = useAuth()
 
-  useEffect(() => {
-    apiGetAll('cart')
-      .then((data) => {
-        setCartProducts(data)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
-
-  const filterByUserEmail = (products) => {
-    const result = products.filter((product) => {
-      return product.user === user.email
-    })
-
-    return result
-  }
-
-  const products = loading ? [] : filterByUserEmail(cartProducts)
-
-  const totalPrice = products.reduce(
-    (acc, currentProduct) => acc + Number(currentProduct.productPrice),
+  const totalPriceCalc = cart.reduce(
+    (acc, current) => acc + Number(current.pizzaPrice),
     0
   )
 
-  if (loading) {
+  const totalPrice = Math.round(totalPriceCalc * 100) / 100
+
+  if (isUserLoading) {
     return <PageLoader />
   }
 
   return (
     <React.Fragment>
-      <h2>Итого: {Math.round(totalPrice * 100) / 100}р.</h2>
-      <Space
-        direction="vertical"
-        wrap
-        size="large"
-        style={{ marginTop: '20px' }}
-      >
-        {products.length === 0 ? (
-          <span className="empty-cart-text">Ваша корзина пуста.</span>
-        ) : (
-          products.map((product) => {
-            return (
-              <CartItem
-                key={product.id}
-                productName={product.productName}
-                productSize={product.productSize}
-                productPrice={product.productPrice}
-                productImage={product.productImage}
-                id={product.id}
-              />
-            )
-          })
-        )}
-      </Space>
+      <h2>Итого: {totalPrice}р.</h2>
+      {cart.length === 0 ? (
+        <span className="empty-cart-text">Ваша корзина пуста.</span>
+      ) : (
+        <>
+          <Space
+            direction="vertical"
+            wrap
+            size="large"
+            style={{ marginTop: '20px' }}
+          >
+            {cart.length === 0 ? (
+              <span className="empty-cart-text">Ваша корзина пуста.</span>
+            ) : (
+              cart.map((pizza) => {
+                return (
+                  <CartItem
+                    key={pizza.id}
+                    productName={pizza.pizzaName}
+                    productSize={pizza.pizzaSize}
+                    productPrice={pizza.pizzaPrice}
+                    productImage={pizza.pizzaImage}
+                    id={pizza.id}
+                  />
+                )
+              })
+            )}
+          </Space>
+          <Button
+            style={{ marginTop: '20px' }}
+            onClick={() => {
+              setIsOrderModalShown(true)
+            }}
+            type="primary"
+            shape="round"
+            className="order-button"
+          >
+            Оплатить
+          </Button>
+        </>
+      )}
+      <PizzaOrderModal
+        showModal={isOrderModalShown}
+        onCancel={() => setIsOrderModalShown(false)}
+      />
     </React.Fragment>
   )
 }

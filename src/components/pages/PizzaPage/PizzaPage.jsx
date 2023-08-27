@@ -8,7 +8,7 @@ import { Space, Button, Modal } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { PageLoader } from '../../PageLoader/PageLoader'
-import { useAuth } from '../../../features/auth/AuthContextProvider'
+import { useAuth } from '../../../features/auth/ContextProvider'
 import { ProductsCartModal } from '../../ProductsCartModal/ProductsCartModal'
 import { OpenCartButton } from '../../OpenCartButton/OpenCartButton'
 
@@ -46,6 +46,14 @@ export const PizzaPage = () => {
     setShowCartModal(false)
   }
 
+  const filterByAvailable = loading
+    ? []
+    : pizzaData.filter((pizza) => {
+        if (pizza.isAvailable === true) {
+          return pizza
+        }
+      })
+
   return (
     <React.Fragment>
       <Header />
@@ -67,7 +75,7 @@ export const PizzaPage = () => {
           {loading ? (
             <PageLoader />
           ) : (
-            pizzaData.map((pizza) => {
+            filterByAvailable.map((pizza) => {
               return (
                 <PizzaItem
                   key={pizza.id}

@@ -77,3 +77,24 @@ input:focus {
   position: absolute;
   font-size: 15px;
 }
+
+.form__button {
+  padding: 0 20px;
+  height: 50px;
+  display: flex;
+  font-size: 20px;
+  background: #64ab3d;
+  color: #fff;
+  border-radius: 9px;
+  border: 2px solid #64ab3d;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-oswald);
+  transition: all 0.2s;
+}
+
+.form__button:hover {
+  background:#F4F4F2;
+  color: #64ab3d;
+  transition: 0.2s;
+}

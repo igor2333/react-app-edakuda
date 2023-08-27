@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import './PizzaItem.css'
-import { Radio, Button, notification } from 'antd'
+import { Radio, Button } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { PizzaInfoModal } from './PizzaInfoModal/PizzaInfoModal'
-import { apiCreate } from '../../api'
-import { useAuth } from '../../features/auth/AuthContextProvider'
-import { useCart } from '../../store/CartContextProvider'
+import { apiUpdate } from '../../api'
+import { useAuth } from '../../features/auth/ContextProvider'
 import uniqueid from 'uniqid'
 
 export const PizzaItem = ({
@@ -36,8 +35,7 @@ export const PizzaItem = ({
     },
   ]
 
-  const { user, cartCount, setCartCount } = useAuth()
-  const { setCartProducts, cartProducts } = useCart()
+  const { user, cart, setCart } = useAuth()
 
   const [price, setPrice] = useState(sizesOptions[0].value)
 
@@ -61,22 +59,30 @@ export const PizzaItem = ({
     const id = uniqueid()
 
     const data = {
-      productName: name,
-      productSize: size,
-      productPrice: price,
-      productImage: image,
-      user: user.email,
-      id: id,
+      cart: [
+        ...cart,
+        {
+          pizzaName: name,
+          pizzaSize: size,
+          pizzaPrice: price,
+          pizzaImage: image,
+          id: id,
+        },
+      ],
     }
 
-    apiCreate(data, 'cart', id).then(() => {
-      setCartProducts([...cartProducts, data])
-      setCartCount(cartCount + 1)
-      notification.success({
-        message: 'Товар успешно добавлен в корзину',
-        placement: 'bottomRight',
-      })
-    })
+    setCart([
+      ...cart,
+      {
+        pizzaName: name,
+        pizzaSize: size,
+        pizzaPrice: price,
+        pizzaImage: image,
+        id: id,
+      },
+    ])
+
+    apiUpdate(user.email, data, 'users')
   }
 
   const handleInfoCancel = () => setIsModalInfoShown(false)

@@ -1,4 +1,4 @@
-.login {
+.registration {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,31 +8,31 @@
   font-family: var(--font-zopa);
 }
 
-.login > h1 {
+.registration > h1 {
   font-weight: 400;
   margin-bottom: 30px;
 }
 
-.login-form {
+.registration-form {
   width: 500px;
 }
 
-.login-form > label {
+.registration-form > label {
   margin-bottom: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.login-form > label {
+.registration-form > label {
   display: flex;
 }
 
-.login-form > label > span {
+.registration-form > label > span {
   width: 400px;
 }
 
-.login-form__buttons-container {
+.registration-form__buttons-container {
   background: #F4F4F2;
   border-radius: 9px;
   padding: 12px;

@@ -1,17 +1,18 @@
 import React from 'react'
 import { useAuth } from '../ContextProvider'
 import { notification } from 'antd'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Header } from '../../../components/Header/Header'
 import { Footer } from '../../../components/Footer/Footer'
 import { apiCreate } from '../../../api'
-import './LoginContainer.css'
 import { getDoc, doc } from 'firebase/firestore'
 import { getFirestore } from 'firebase/firestore'
+import { NavLink } from 'react-router-dom'
+import './RegistrationContainer.css'
 
-export const LoginContainer = () => {
-  const { loginWithEmailAndPassword } = useAuth()
+export const RegistrationContainer = () => {
+  const { createWithEmailAndPassword } = useAuth()
   const navigate = useNavigate()
 
   const {
@@ -33,17 +34,11 @@ export const LoginContainer = () => {
     }
 
     if (querySnapshot.exists()) {
-      loginWithEmailAndPassword(data.email, data.password)
-        .then(() => {
-          navigate('/admin/pizza')
-        })
-        .catch((error) => {
-          notification.error({
-            message: error.message,
-          })
-        })
+      notification.error({
+        message: 'Аккаунт с такой же почтой уже существует',
+      })
     } else {
-      loginWithEmailAndPassword(data.email, data.password)
+      createWithEmailAndPassword(data.email, data.password)
         .then(() => {
           apiCreate(userData, 'users', data.email)
           navigate('/admin/pizza')
@@ -59,9 +54,9 @@ export const LoginContainer = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="login">
-        <h1>Войти на ЕдаКуда.бай</h1>
-        <form onSubmit={handleSubmit(submit)} className="login-form">
+      <div className="registration">
+        <h1>Регистрация</h1>
+        <form onSubmit={handleSubmit(submit)} className="registration-form">
           <label>
             <span>Электронная почта:</span>
             <div style={{ width: '100%' }}>
@@ -104,8 +99,8 @@ export const LoginContainer = () => {
               )}
             </div>
           </label>
-          <div className="login-form__buttons-container">
-            <button className="form__button">Войти</button>
+          <div className="registration-form__buttons-container">
+            <button className="form__button">Создать новый аккаунт</button>
           </div>
           <NavLink
             style={{
@@ -115,9 +110,9 @@ export const LoginContainer = () => {
               fontSize: '20px',
               marginTop: '10px',
             }}
-            to="/registration"
+            to="/login"
           >
-            Создать новый аккаунт
+            Войти
           </NavLink>
         </form>
       </div>

@@ -4,46 +4,44 @@ import {
   signInWithEmailAndPassword,
   browserLocalPersistence,
   signOut,
-  signInWithPopup,
-  ProviderId,
-  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
-import { apiGetAll } from '../../api'
+import { apiGetSingle } from '../../api'
 
 const authContext = createContext({
   isAuthenticated: false,
   isUserLoading: true,
   cartCount: null,
   user: null,
+  cart: [],
+  setCart: void 0,
+  createWithEmailAndPassword: () => Promise.reject(null),
   loginWithEmailAndPassword: () => Promise.reject(null),
-  loginWithPopup: () => Promise.reject(null),
   logOut: () => void 0,
 })
 
-export const ALLOWED_OAUTH_PROVIDERS = {
-  [ProviderId.GOOGLE]: new GoogleAuthProvider(),
-}
-
 export const useAuth = () => useContext(authContext)
 
-export const AuthContextProvider = ({ children, firebaseApp }) => {
+export const ContextProvider = ({ children, firebaseApp }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
   const [isUserLoading, setIsUserLoading] = useState(true)
   const [user, setUser] = useState(null)
   const [cartCount, setCartCount] = useState(0)
   const [auth] = useState(getAuth(firebaseApp))
 
+  const [cart, setCart] = useState([])
+
+  const createWithEmailAndPassword = (email, password) => {
+    setUser(null)
+    setIsAuthenticated(null)
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+
   const loginWithEmailAndPassword = (email, password) => {
     setUser(null)
     setIsAuthenticated(null)
     return signInWithEmailAndPassword(auth, email, password)
-  }
-
-  const loginWithPopup = (provider) => {
-    setUser(null)
-    setIsAuthenticated(null)
-    return signInWithPopup(auth, ALLOWED_OAUTH_PROVIDERS[provider])
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,12 +56,8 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
     auth.setPersistence(browserLocalPersistence)
     auth.onAuthStateChanged((user) => {
       if (user) {
-        apiGetAll('cart').then((data) => {
-          const filterByUser = data.filter((obj) => {
-            return obj.user === user.email
-          })
-
-          setCartCount(filterByUser.length)
+        apiGetSingle(user.email, 'users').then((data) => {
+          setCart(data.cart)
         })
 
         isUserAdmin(firebaseApp)
@@ -95,10 +89,12 @@ export const AuthContextProvider = ({ children, firebaseApp }) => {
         isUserLoading: isUserLoading,
         setCartCount: (count) => setCartCount(count),
         cartCount: cartCount,
+        cart: cart,
+        setCart: (pizza) => setCart(pizza),
         user,
+        createWithEmailAndPassword,
         loginWithEmailAndPassword,
         logOut,
-        loginWithPopup,
       }}
     >
       {children}

@@ -2,9 +2,8 @@ import React from 'react'
 import './CartItem.css'
 import { Dropdown, Button, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { apiDelete } from '../../api'
-import { useCart } from '../../store/CartContextProvider'
-import { useAuth } from '../../features/auth/AuthContextProvider'
+import { apiUpdate } from '../../api'
+import { useAuth } from '../../features/auth/ContextProvider'
 
 export const CartItem = ({
   productName,
@@ -13,15 +12,19 @@ export const CartItem = ({
   productImage,
   id,
 }) => {
-  const { cartProducts, setCartProducts } = useCart()
-
-  const { cartCount, setCartCount } = useAuth()
+  const { user, cart, setCart } = useAuth()
 
   const onDelete = () => {
-    console.log(id)
-    apiDelete(id, 'cart').then(() => {
-      setCartProducts(cartProducts.filter((item) => item.id !== id))
-      setCartCount(cartCount - 1)
+    const filter = cart.filter((pizza) => {
+      return pizza.id !== id
+    })
+
+    const cartData = {
+      cart: [...filter],
+    }
+
+    apiUpdate(user.email, cartData, 'users').then(() => {
+      setCart(filter)
       notification.success({
         message: 'Товар успешно удалён из корзины',
       })

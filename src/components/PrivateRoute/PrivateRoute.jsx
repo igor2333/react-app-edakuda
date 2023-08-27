@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuth } from '../../features/auth/AuthContextProvider'
+import { useAuth } from '../../features/auth/ContextProvider'
 import { Navigate } from 'react-router-dom'
 import { PageLoader } from '../PageLoader/PageLoader'
 

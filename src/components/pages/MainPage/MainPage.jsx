@@ -10,10 +10,10 @@ import {
 } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../Logo/Logo'
-import { useAuth } from '../../../features/auth/AuthContextProvider'
+import { useAuth } from '../../../features/auth/ContextProvider'
 
 export const MainPage = () => {
-  const { cartCount } = useAuth()
+  const { cart } = useAuth()
 
   return (
     <React.Fragment>
@@ -46,7 +46,7 @@ export const MainPage = () => {
               <ShoppingCartOutlined style={{ fontSize: '40px' }} />
               <span>
                 Товаров <br />в корзине:
-                <span className="color-green"> {cartCount}</span>
+                <span className="color-green"> {cart.length}</span>
               </span>
             </div>
           </div>

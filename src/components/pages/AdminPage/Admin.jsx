@@ -44,6 +44,7 @@ export const Admin = () => {
               pizzaData.map((pizza) => {
                 return (
                   <AdminItem
+                    isAvailable={pizza.isAvailable}
                     key={pizza.id}
                     image={pizza.image}
                     name={pizza.name}

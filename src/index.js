@@ -3,17 +3,14 @@ import ReactDOM from 'react-dom/client'
 import './common.css'
 import App from '../src/components/App/App'
 import { initializeAPI } from './api'
-import { AuthContextProvider } from './features/auth/AuthContextProvider'
-import { CartContextProvider } from './store/CartContextProvider'
+import { ContextProvider } from './features/auth/ContextProvider'
 
 const firebaseApp = initializeAPI()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-  <AuthContextProvider firebaseApp={firebaseApp}>
-    <CartContextProvider>
-      <App />
-    </CartContextProvider>
-  </AuthContextProvider>
+  <ContextProvider firebaseApp={firebaseApp}>
+    <App />
+  </ContextProvider>
 )

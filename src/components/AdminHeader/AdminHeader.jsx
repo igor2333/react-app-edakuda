@@ -3,7 +3,7 @@ import './AdminHeader.css'
 import { NavLink } from 'react-router-dom'
 import { LogoutOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import { useAuth } from '../../features/auth/AuthContextProvider'
+import { useAuth } from '../../features/auth/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 
 export const AdminHeader = () => {

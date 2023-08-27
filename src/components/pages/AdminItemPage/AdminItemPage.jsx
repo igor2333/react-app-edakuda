@@ -9,12 +9,13 @@ import {
   apiDelete,
 } from '../../../api'
 import { AdminHeader } from '../../AdminHeader/AdminHeader'
-import { Modal, notification } from 'antd'
+import { Modal, notification, Switch } from 'antd'
 import { Footer } from '../../Footer/Footer'
 import { getImage } from './utils'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import uniqueid from 'uniqid'
+import { PageLoader } from '../../PageLoader/PageLoader'
 
 export const AdminItemPage = () => {
   const params = useParams()
@@ -22,15 +23,20 @@ export const AdminItemPage = () => {
 
   const [imageUrl, setImageUrl] = useState('')
   const [imageInputError, setImageInputError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const {
     register,
+    getValues,
     formState: { errors },
     reset,
     handleSubmit,
   } = useForm({
     defaultValues: {},
   })
+
+  const [inputValues, setInputValues] = useState({})
+  const [isAvailable, setIsAvailable] = useState(true)
 
   const submit = (data) => {
     if (imageInputError !== '') {
@@ -39,7 +45,10 @@ export const AdminItemPage = () => {
     const id = uniqueid()
 
     data.image = imageUrl
-    data.id = id
+    data.id = params.pizzaId ? params.pizzaId : id
+    data.isAvailable = isAvailable
+
+    setInputValues(data)
 
     if (params.pizzaId) {
       apiUpdate(params.pizzaId, data, 'pizza').then(() => {
@@ -104,15 +113,42 @@ export const AdminItemPage = () => {
 
   useEffect(() => {
     if (!params.pizzaId) {
+      setLoading(false)
       return
     }
 
-    apiGetSingle(params.pizzaId, 'pizza').then((data) => {
-      reset(data)
-      setImageUrl(data.image)
-      setImageInputError('')
-    })
+    apiGetSingle(params.pizzaId, 'pizza')
+      .then((data) => {
+        console.log(data)
+        setIsAvailable(data.isAvailable)
+        setInputValues(data)
+        reset(data)
+        setImageUrl(data.image)
+        setImageInputError('')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [params.pizzaId])
+
+  const onChangeSwitch = (checked) => {
+    const data = {
+      ...inputValues,
+      isAvailable: true,
+    }
+
+    if (checked) {
+      setIsAvailable(true)
+      apiUpdate(params.pizzaId, data, 'pizza')
+    } else {
+      setIsAvailable(false)
+      apiUpdate(params.pizzaId, { ...data, isAvailable: false }, 'pizza')
+    }
+  }
+
+  if (loading) {
+    return <PageLoader />
+  }
 
   return (
     <React.Fragment>
@@ -265,15 +301,25 @@ export const AdminItemPage = () => {
               {params.pizzaId ? 'Обновить пиццу' : 'Создать новую пиццу'}
             </button>
             {!params.pizzaId ? null : (
-              <button
-                type="button"
-                onClick={showDeleteConfirm}
-                className="admin-item-page__button"
-                style={{ background: 'red', marginLeft: '20px' }}
-              >
-                Удалить пиццу
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={showDeleteConfirm}
+                  className="admin-item-page__button"
+                  style={{ background: 'red' }}
+                >
+                  Удалить пиццу
+                </button>
+              </>
             )}
+            <div className="admin-item-page__toggler">
+              <span>Товар доступен в наличии:</span>
+              <Switch
+                defaultChecked={isAvailable ? true : false}
+                onChange={onChangeSwitch}
+                style={{ marginLeft: '10px' }}
+              />
+            </div>
           </div>
         </form>
       </div>

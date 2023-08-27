@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import './PizzaOrderModal.css'
 import { Radio, Modal, Input, Form } from 'antd'
+import { apiCreate, apiUpdate } from '../../api'
 import { EnvironmentOutlined } from '@ant-design/icons'
+import uniqueid from 'uniqid'
+import { useAuth } from '../../features/auth/ContextProvider'
 
-export const PizzaOrderModal = ({
-  showModal,
-  onCancel,
-  pizzaPrice,
-  pizzaSize,
-  name,
-}) => {
+export const PizzaOrderModal = ({ showModal, onCancel }) => {
   const orderOptions = ['Наличными', 'Карточкой', 'Заберу сам =)']
   const [checkedOrderOption, setCheckedOrderOption] = useState(orderOptions[2])
+
+  const { cart, setCart, user } = useAuth()
+
+  const totalPriceCalc = cart.reduce(
+    (acc, current) => acc + Number(current.pizzaPrice),
+    0
+  )
+
+  const totalPrice = Math.round(totalPriceCalc * 100) / 100
 
   const onChangeOrderOptions = ({ target: { value } }) => {
     setCheckedOrderOption(value)
@@ -23,17 +29,23 @@ export const PizzaOrderModal = ({
     const formData = form.getFieldValue()
     delete formData['remember']
 
-    const orderValues = {
+    const id = uniqueid()
+
+    const data = {
       ...formData,
-      price: pizzaPrice,
-      pizzaSize: pizzaSize,
-      pizzaName: name,
+      userEmail: user.email,
+      totalPrice: totalPrice,
+      orderedPizza: cart,
       orderOption: checkedOrderOption,
-      data: new Date(),
+      id: id,
     }
 
-    onCancel()
-    console.log(orderValues)
+    apiCreate(data, 'orders', id).then(() => {
+      apiUpdate(user.email, { cart: [] }, 'users').then(() => {
+        setCart([])
+      })
+      onCancel()
+    })
   }
 
   const onSubmit = () => {

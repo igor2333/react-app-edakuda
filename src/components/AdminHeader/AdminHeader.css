@@ -16,7 +16,8 @@
 .admin-header__logo-container {
   display: flex;
   align-items: center;
-  font-family: var(--font-zopa);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .admin-header-logo {
