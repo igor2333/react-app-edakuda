@@ -1,7 +1,5 @@
 import React from 'react'
 import './MainPage.css'
-import { Header } from '../../Header/Header'
-import { Footer } from '../../Footer/Footer'
 import {
   CarOutlined,
   PhoneOutlined,
@@ -11,21 +9,17 @@ import {
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../Logo/Logo'
 import { useAuth } from '../../../features/auth/ContextProvider'
+import { Page } from '../../Page/Page'
 
 export const MainPage = () => {
   const { cart } = useAuth()
 
   return (
-    <React.Fragment>
-      <Header />
+    <Page>
       <div className="main-page">
         <div className="main-page__info-container">
           <Logo />
           <div className="main-page__info-blocks">
-            <div>
-              <CarOutlined style={{ fontSize: '40px' }} />
-              <span>Условия доставки</span>
-            </div>
             <div>
               <PhoneOutlined style={{ fontSize: '40px' }} />
               <span>
@@ -90,30 +84,7 @@ export const MainPage = () => {
               </span>
             </div>
           </NavLink>
-          <NavLink to="/rolls" className="main-page__assortment-item">
-            <img src={require('../../../images/rolls.png')} alt="pizzas" />
-            <div className="main-page__assortment-item-text-container">
-              <span className="main-page__assortment-item-text-primary">
-                Суши и роллы
-              </span>
-              <span className="main-page__assortment-item-text-secondary">
-                Мы долго работали над тем, чтобы каждый ролл был идеальным по
-                вкусу
-              </span>
-            </div>
-          </NavLink>
           <div className="main-page__line"></div>
-          <NavLink to="/" className="main-page__assortment-item">
-            <img src={require('../../../images/bakery.png')} alt="pizzas" />
-            <div className="main-page__assortment-item-text-container">
-              <span className="main-page__assortment-item-text-primary">
-                Свежая выпечка
-              </span>
-              <span className="main-page__assortment-item-text-secondary">
-                Восхитительные лакомства, делают наш дом по-настоящему уютным.
-              </span>
-            </div>
-          </NavLink>
           <NavLink to="/" className="main-page__assortment-item">
             <img src={require('../../../images/hamburger.png')} alt="pizzas" />
             <div className="main-page__assortment-item-text-container">
@@ -138,7 +109,6 @@ export const MainPage = () => {
               </span>
             </div>
           </NavLink>
-          <div className="main-page__line"></div>
         </div>
         <div className="main-page__cakes-order-container">
           <NavLink to="/cakes">
@@ -146,7 +116,6 @@ export const MainPage = () => {
           </NavLink>
         </div>
       </div>
-      <Footer />
-    </React.Fragment>
+    </Page>
   )
 }

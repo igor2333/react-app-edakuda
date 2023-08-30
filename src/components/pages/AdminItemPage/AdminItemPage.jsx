@@ -199,27 +199,14 @@ export const AdminItemPage = () => {
             <h3>Размеры и цена:</h3>
             <div>
               <label>
-                Вес маленького размера (грамм):
-                <input
-                  type="number"
-                  {...register('smallSize', { required: true })}
-                  aria-invalid={errors.smallSize ? 'true' : 'false'}
-                />
-              </label>
-              {errors.smallSize?.type === 'required' && (
-                <p className="error" role="alert">
-                  Введите массу маленького размера
-                </p>
-              )}
-              <label>
                 Цена за маленький размер:
                 <input
                   type="number"
-                  {...register('smallSizePrice', { required: true })}
+                  {...register('smallPrice', { required: true })}
                   aria-invalid={errors.smallSizePrice ? 'true' : 'false'}
                 />
               </label>
-              {errors.smallSizePrice?.type === 'required' && (
+              {errors.smallPrice?.type === 'required' && (
                 <p className="error" role="alert">
                   Введите цену маленького размера
                 </p>
@@ -227,27 +214,14 @@ export const AdminItemPage = () => {
             </div>
             <div>
               <label>
-                Вес среднего размера (грамм):
-                <input
-                  type="number"
-                  {...register('mediumSize', { required: true })}
-                  aria-invalid={errors.mediumSize ? 'true' : 'false'}
-                />
-              </label>
-              {errors.mediumSize?.type === 'required' && (
-                <p className="error" role="alert">
-                  Введите массу среднего размера
-                </p>
-              )}
-              <label>
                 Цена за средний размер:
                 <input
                   type="number"
-                  {...register('mediumSizePrice', { required: true })}
+                  {...register('mediumPrice', { required: true })}
                   aria-invalid={errors.mediumSize ? 'true' : 'false'}
                 />
               </label>
-              {errors.mediumSizePrice?.type === 'required' && (
+              {errors.mediumPrice?.type === 'required' && (
                 <p className="error" role="alert">
                   Введите цену среднего размера
                 </p>
@@ -255,27 +229,14 @@ export const AdminItemPage = () => {
             </div>
             <div>
               <label>
-                Вес большого размера (грамм):
-                <input
-                  type="number"
-                  {...register('largeSize', { required: true })}
-                  aria-invalid={errors.largeSize ? 'true' : 'false'}
-                />
-              </label>
-              {errors.largeSize?.type === 'required' && (
-                <p className="error" role="alert">
-                  Введите массу большого размера
-                </p>
-              )}
-              <label>
                 Цена за большой размер:
                 <input
                   type="number"
-                  {...register('largeSizePrice', { required: true })}
+                  {...register('largePrice', { required: true })}
                   aria-invalid={errors.largeSize ? 'true' : 'false'}
                 />
               </label>
-              {errors.largeSizePrice?.type === 'required' && (
+              {errors.largePrice?.type === 'required' && (
                 <p className="error" role="alert">
                   Введите цену большого размера
                 </p>

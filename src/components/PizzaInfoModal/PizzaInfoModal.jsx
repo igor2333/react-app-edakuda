@@ -3,8 +3,8 @@ import { Modal, Radio, Button } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import './PizzaInfoModal.css'
 import uniqueid from 'uniqid'
-import { apiUpdate } from '../../../api'
-import { useAuth } from '../../../features/auth/ContextProvider'
+import { apiUpdate } from '../../api'
+import { useAuth } from '../../features/auth/ContextProvider'
 
 export const PizzaInfoModal = ({
   image,
@@ -13,25 +13,22 @@ export const PizzaInfoModal = ({
   conditions,
   showModal,
   onCancel,
-  smallSize,
-  smallSizePrice,
-  mediumSize,
-  mediumSizePrice,
-  largeSize,
-  largeSizePrice,
+  smallPrice,
+  mediumPrice,
+  largePrice,
 }) => {
   const sizesOptions = [
     {
-      label: `${smallSize}г`,
-      value: smallSizePrice,
+      label: `24см`,
+      value: smallPrice,
     },
     {
-      label: `${mediumSize}г`,
-      value: mediumSizePrice,
+      label: `32см`,
+      value: mediumPrice,
     },
     {
-      label: `${largeSize}г`,
-      value: largeSizePrice,
+      label: `42см`,
+      value: largePrice,
     },
   ]
 
@@ -48,7 +45,7 @@ export const PizzaInfoModal = ({
 
     return filtered[0].label
   }
-  const size = Number(getSize(sizesOptions).slice(0, -1))
+  const size = getSize(sizesOptions)
 
   const { user, cart, setCart } = useAuth()
 

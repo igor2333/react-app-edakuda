@@ -33,15 +33,9 @@ export const AdminHeader = () => {
               <NavLink>Пицца</NavLink>
             </li>
             <li>
-              <NavLink>Торты</NavLink>
-            </li>
-            <li>
-              <NavLink>Суши</NavLink>
-            </li>
-            <li>
               <Button
                 onClick={onLogoutClick}
-                style={{ marginLeft: '50px' }}
+                style={{ marginLeft: '40px' }}
                 shape="circle"
                 icon={<LogoutOutlined />}
               ></Button>

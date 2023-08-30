@@ -59,19 +59,8 @@ export const PizzaPage = () => {
       <Header />
       <OpenCartButton onClick={() => setShowCartModal(true)} />
       <div className="pizza-page">
-        <div>
-          {isAuthenticate ? (
-            <Button
-              style={{ marginBottom: '50px' }}
-              size="large"
-              onClick={showModal}
-            >
-              <PlusCircleOutlined />
-              Добавить, удалить или отредактировать пиццу
-            </Button>
-          ) : null}
-        </div>
-        <Space wrap="true" size="large">
+        <h1>Вся пицца:</h1>
+        <Space style={{ marginTop: '25px' }} wrap="true" size="large">
           {loading ? (
             <PageLoader />
           ) : (
@@ -83,12 +72,9 @@ export const PizzaPage = () => {
                   image={pizza.image}
                   name={pizza.name}
                   composition={pizza.composition}
-                  smallSize={pizza.smallSize}
-                  smallSizePrice={pizza.smallSizePrice}
-                  mediumSize={pizza.mediumSize}
-                  mediumSizePrice={pizza.mediumSizePrice}
-                  largeSize={pizza.largeSize}
-                  largeSizePrice={pizza.largeSizePrice}
+                  smallPrice={pizza.smallPrice}
+                  mediumPrice={pizza.mediumPrice}
+                  largePrice={pizza.largePrice}
                   conditions={pizza.conditions}
                 />
               )

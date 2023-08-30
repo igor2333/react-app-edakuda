@@ -5,10 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Header } from '../../../components/Header/Header'
 import { Footer } from '../../../components/Footer/Footer'
-import { apiCreate } from '../../../api'
 import './LoginContainer.css'
-import { getDoc, doc } from 'firebase/firestore'
-import { getFirestore } from 'firebase/firestore'
 
 export const LoginContainer = () => {
   const { loginWithEmailAndPassword } = useAuth()
@@ -22,38 +19,16 @@ export const LoginContainer = () => {
     defaultValues: {},
   })
 
-  const submit = async (data) => {
-    const dataBase = getFirestore()
-    const querySnapshot = await getDoc(doc(dataBase, 'users', data.email))
-
-    const userData = {
-      email: data.email,
-      password: data.password,
-      cart: [],
-    }
-
-    if (querySnapshot.exists()) {
-      loginWithEmailAndPassword(data.email, data.password)
-        .then(() => {
-          navigate('/admin/pizza')
+  const submit = (data) => {
+    loginWithEmailAndPassword(data.email, data.password)
+      .then(() => {
+        navigate('/')
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.message,
         })
-        .catch((error) => {
-          notification.error({
-            message: error.message,
-          })
-        })
-    } else {
-      loginWithEmailAndPassword(data.email, data.password)
-        .then(() => {
-          apiCreate(userData, 'users', data.email)
-          navigate('/admin/pizza')
-        })
-        .catch((error) => {
-          notification.error({
-            message: error.message,
-          })
-        })
-    }
+      })
   }
 
   return (

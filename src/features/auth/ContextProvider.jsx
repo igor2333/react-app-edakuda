@@ -47,23 +47,17 @@ export const ContextProvider = ({ children, firebaseApp }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const logOut = () => signOut(auth)
 
-  const isUserAdmin = async (firebaseApp) => {
-    const dataBase = getFirestore(firebaseApp)
-    return await getDoc(doc(dataBase, '/internal/auth'))
-  }
-
   useEffect(() => {
     auth.setPersistence(browserLocalPersistence)
     auth.onAuthStateChanged((user) => {
       if (user) {
-        apiGetSingle(user.email, 'users').then((data) => {
-          setCart(data.cart)
-        })
-
-        isUserAdmin(firebaseApp)
+        apiGetSingle(user.email, 'users')
+          .then((data) => {
+            setCart(data.cart)
+            setUser(data)
+          })
           .then(() => {
             setIsAuthenticated(true)
-            setUser(user)
           })
           .catch((error) => {
             logOut()

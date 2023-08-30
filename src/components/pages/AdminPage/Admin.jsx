@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './Admin.css'
+import { Page } from '../../Page/Page'
 import { apiGetAll } from '../../../api'
 import { AdminItem } from '../../AdminItem/AdminItem'
 import { Space, Button } from 'antd'
-import { AdminHeader } from '../../AdminHeader/AdminHeader'
-import { Footer } from '../../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { PageLoader } from '../../PageLoader/PageLoader'
 import { BackArrow } from '../../BackArrow/BackArrow'
@@ -26,11 +25,10 @@ export const Admin = () => {
   }, [])
 
   return (
-    <React.Fragment>
-      <AdminHeader />
+    <Page>
       <div className="admin-main">
         <div className="admin-main__pizza-list">
-          <h1>Вся пицца:</h1>
+          <h1>Панель администратора</h1>
           <Button
             onClick={() => navigate('/admin/pizza/create')}
             style={{ display: 'block', marginTop: '10px' }}
@@ -56,8 +54,6 @@ export const Admin = () => {
           </Space>
         </div>
       </div>
-      <BackArrow />
-      <Footer />
-    </React.Fragment>
+    </Page>
   )
 }

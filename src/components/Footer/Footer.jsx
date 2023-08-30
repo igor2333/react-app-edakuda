@@ -1,12 +1,11 @@
 import React from 'react'
-import './Footer.css'
 import {
-  ShopOutlined,
   InstagramOutlined,
   ClockCircleOutlined,
   FacebookOutlined,
 } from '@ant-design/icons'
 import { Logo } from '../Logo/Logo'
+import './Footer.css'
 
 export const Footer = () => {
   return (
@@ -17,14 +16,12 @@ export const Footer = () => {
             className="footer__links-cafekontinent"
             href="http://cafekontinent.by/"
           >
-            <ShopOutlined />
             <span>cafekontinent.by</span>
           </a>
           <a
             className="footer__links-instagram"
             href="https://www.instagram.com/newkontinent_gastromarket/"
           >
-            <InstagramOutlined />
             <span>newkontinent_gastromarket</span>
           </a>
         </div>
@@ -51,7 +48,7 @@ export const Footer = () => {
         <hr />
         <div className="footer__bottom-container">
           <span>ЧТПУП "ЭкономМаркет" г.Жлобин 2023</span>
-          <div>
+          <div className="footer__socials-container">
             <span
               style={{ fontWeight: 'bold', fontFamily: 'var(--font-zopa)' }}
             >
@@ -69,7 +66,7 @@ export const Footer = () => {
               </div>
             </span>
           </div>
-          <span>Разработка сайта - iharaleynikov@gmail.com</span>
+          <span>Разработка сайта - victororlov174@gmail.com</span>
         </div>
       </div>
     </div>

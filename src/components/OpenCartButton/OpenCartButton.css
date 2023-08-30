@@ -3,8 +3,7 @@
   height: 50px;
   position: fixed;
   cursor: pointer;
-  margin: 30px;
-  right: 0;
+  right: 20px;
 }
 
 .open-cart-button__count {

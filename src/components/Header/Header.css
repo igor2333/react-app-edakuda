@@ -2,6 +2,8 @@
   font-size: 20px;
   background: #1D252A;
   color: #fff;
+  padding: 0 20px;
+  margin-bottom: 25px;
 }
 
 .header-wrapper {
@@ -45,7 +47,71 @@
   font-size: 18px;
 }
 
-.header__user:hover {
-  text-decoration: underline;
+.header__mobile-ul {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.header__mobile-ul > li > a {
+  padding: 10px;
+}
+
+.header__mobile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__mobile-button {
+  padding: 6px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: none;
+  color: #fff;
+  font-size: 25px;
+  font-family: var(--font-oswald);
+}
+
+.header__mobile-menu {
+  position: relative;
+  overflow: hidden;
+}
+
+.header-mobile-menu-animation-enter .header__mobile-menu {
+  max-height: 0;
+  transition: max-height 0.4s;
+}
+
+.header-mobile-menu-animation-enter-active .header__mobile-menu {
+  max-height: 100vh;
+}
+
+.header-mobile-menu-animation-exit .header__mobile-menu {
+  max-height: 100vh;
+  transition: max-height 0.4s;
+}
+
+.header-mobile-menu-animation-exit-active .header__mobile-menu {
+  max-height: 0;
+}
+
+.header-mobile-menu-animation-enter .header__mobile-backdrop {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.header-mobile-menu-animation-enter-active .header__mobile-backdrop {
+  opacity: 1;
+}
+
+.header-mobile-menu-animation-exit .header__mobile-backdrop {
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.header-mobile-menu-animation-exit-active .header__mobile-backdrop {
+  opacity: 0;
 }
 

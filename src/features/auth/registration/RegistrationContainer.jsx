@@ -30,6 +30,7 @@ export const RegistrationContainer = () => {
     const userData = {
       email: data.email,
       password: data.password,
+      isAdmin: false,
       cart: [],
     }
 
@@ -41,7 +42,7 @@ export const RegistrationContainer = () => {
       createWithEmailAndPassword(data.email, data.password)
         .then(() => {
           apiCreate(userData, 'users', data.email)
-          navigate('/admin/pizza')
+          navigate('/')
         })
         .catch((error) => {
           notification.error({

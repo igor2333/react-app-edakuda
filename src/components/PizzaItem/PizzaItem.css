@@ -51,3 +51,25 @@
   font-size: 22px;
   font-weight: bold;
 }
+
+@media (max-width: 628px) {
+  .pizza-item {
+    background: #FEFEFE;
+    display: flex;
+    color: #212121;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 31px 18px rgba(99, 99, 99, 0.2);
+    padding: 0 10px 20px;
+    width: 170px;
+    border-radius: 15px;
+    letter-spacing: 0.6px;
+  }
+  
+  .pizza-item__image {
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
+}

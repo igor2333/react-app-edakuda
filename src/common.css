@@ -48,8 +48,7 @@ label {
 }
 
 input {
-  width: 100%;
-  padding: 4px 11px;
+    padding: 4px 11px;
   font-size: 14px;
   line-height: 1.5714285714285714;
   background-color: #ffffff;
@@ -97,4 +96,8 @@ input:focus {
   background:#F4F4F2;
   color: #64ab3d;
   transition: 0.2s;
+}
+
+.--prevent-scroll {
+  overflow: hidden;
 }

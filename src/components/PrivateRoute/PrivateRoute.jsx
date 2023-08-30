@@ -4,15 +4,17 @@ import { Navigate } from 'react-router-dom'
 import { PageLoader } from '../PageLoader/PageLoader'
 
 export const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isUserLoading, user } = useAuth()
 
-  if (isAuthenticated === null) {
+  if (isUserLoading) {
     return <PageLoader />
   }
 
+  console.log(user)
+
   return (
     <React.Fragment>
-      {isAuthenticated ? children : <Navigate replace to="/login" />}
+      {user.isAdmin ? children : <Navigate replace to="/login" />}
     </React.Fragment>
   )
 }

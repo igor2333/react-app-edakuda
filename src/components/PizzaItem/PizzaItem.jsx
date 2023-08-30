@@ -2,36 +2,35 @@ import React, { useState } from 'react'
 import './PizzaItem.css'
 import { Radio, Button } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { PizzaInfoModal } from './PizzaInfoModal/PizzaInfoModal'
+import { PizzaInfoModal } from '../PizzaInfoModal/PizzaInfoModal'
 import { apiUpdate } from '../../api'
 import { useAuth } from '../../features/auth/ContextProvider'
 import uniqueid from 'uniqid'
+import { useAdaptive } from '../../hooks'
 
 export const PizzaItem = ({
   image,
   name,
-  sizesPerPrices,
   composition,
   conditions,
-  smallSize,
-  smallSizePrice,
-  mediumSize,
-  mediumSizePrice,
-  largeSize,
-  largeSizePrice,
+  smallPrice,
+  mediumPrice,
+  largePrice,
 }) => {
+  const { isMobile } = useAdaptive()
+
   const sizesOptions = [
     {
-      label: `${smallSize}г`,
-      value: smallSizePrice,
+      label: `24см`,
+      value: smallPrice,
     },
     {
-      label: `${mediumSize}г`,
-      value: mediumSizePrice,
+      label: `32см`,
+      value: mediumPrice,
     },
     {
-      label: `${largeSize}г`,
-      value: largeSizePrice,
+      label: `42см`,
+      value: largePrice,
     },
   ]
 
@@ -51,7 +50,7 @@ export const PizzaItem = ({
     return filtered[0].label
   }
 
-  const size = Number(getSize(sizesOptions).slice(0, -1))
+  const size = getSize(sizesOptions)
 
   const [isModalInfoShown, setIsModalInfoShown] = useState(false)
 
@@ -102,6 +101,7 @@ export const PizzaItem = ({
         <Radio.Group
           options={sizesOptions}
           optionType="button"
+          size={isMobile ? 'small' : 'medium'}
           buttonStyle="solid"
           value={price}
           onChange={handleChangeValue}
@@ -124,16 +124,12 @@ export const PizzaItem = ({
       </div>
       <PizzaInfoModal
         composition={composition}
-        smallSize={smallSize}
-        smallSizePrice={smallSizePrice}
-        mediumSize={mediumSize}
-        mediumSizePrice={mediumSizePrice}
-        largeSize={largeSize}
-        largeSizePrice={largeSizePrice}
         conditions={conditions}
         name={name}
-        sizesPerPrices={sizesPerPrices}
         image={image}
+        smallPrice={smallPrice}
+        mediumPrice={mediumPrice}
+        largePrice={largePrice}
         showModal={isModalInfoShown}
         onCancel={handleInfoCancel}
       />
