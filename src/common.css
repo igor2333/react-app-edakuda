@@ -73,11 +73,10 @@ input:focus {
 .error {
   color: #ff0000;
   font-family: var(--font-oswald);
-  position: absolute;
   font-size: 15px;
 }
 
-.form__button {
+.form-button {
   padding: 0 20px;
   height: 50px;
   display: flex;
@@ -90,9 +89,10 @@ input:focus {
   justify-content: center;
   font-family: var(--font-oswald);
   transition: all 0.2s;
+  width: 100%;
 }
 
-.form__button:hover {
+.form-button:hover {
   background:#F4F4F2;
   color: #64ab3d;
   transition: 0.2s;

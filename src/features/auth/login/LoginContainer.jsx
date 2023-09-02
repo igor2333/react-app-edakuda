@@ -39,48 +39,44 @@ export const LoginContainer = () => {
         <form onSubmit={handleSubmit(submit)} className="login-form">
           <label>
             <span>Электронная почта:</span>
-            <div style={{ width: '100%' }}>
-              <input
-                {...register('email', {
-                  required: true,
-                  pattern:
-                    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-                })}
-                aria-invalid={errors.name ? 'true' : 'false'}
-                type="email"
-              />
-              {errors.email?.type === 'required' && (
-                <p className="error" role="alert">
-                  Введите почту
-                </p>
-              )}
-              {errors.email?.type === 'pattern' && (
-                <p className="error" role="alert">
-                  Введите корректную почту
-                </p>
-              )}
-            </div>
+            <input
+              {...register('email', {
+                required: true,
+                pattern:
+                  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+              })}
+              aria-invalid={errors.name ? 'true' : 'false'}
+              type="email"
+            />
+            {errors.email?.type === 'required' && (
+              <p className="error" role="alert">
+                Введите почту
+              </p>
+            )}
+            {errors.email?.type === 'pattern' && (
+              <p className="error" role="alert">
+                Введите корректную почту
+              </p>
+            )}
           </label>
           <label>
             <span>Пароль:</span>
-            <div style={{ width: '100%' }}>
-              <input
-                {...register('password', { required: true, minLength: 6 })}
-                aria-invalid={errors.composition ? 'true' : 'false'}
-                type="password"
-              />
-              {errors.password?.type === 'required' && (
-                <p className="error" role="alert">
-                  Введите пароль
-                </p>
-              )}
-              {errors?.password?.type === 'minLength' && (
-                <p className="error">Пароль должен быть не меньше 6 символов</p>
-              )}
-            </div>
+            <input
+              {...register('password', { required: true, minLength: 6 })}
+              aria-invalid={errors.composition ? 'true' : 'false'}
+              type="password"
+            />
+            {errors.password?.type === 'required' && (
+              <p className="error" role="alert">
+                Введите пароль
+              </p>
+            )}
+            {errors?.password?.type === 'minLength' && (
+              <p className="error">Пароль должен быть не меньше 6 символов</p>
+            )}
           </label>
           <div className="login-form__buttons-container">
-            <button className="form__button">Войти</button>
+            <button className="form-button">Войти</button>
           </div>
           <NavLink
             style={{

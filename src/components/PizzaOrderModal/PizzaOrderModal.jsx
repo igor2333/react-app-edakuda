@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './PizzaOrderModal.css'
-import { Radio, Modal, Input, Form } from 'antd'
+import { Radio, Modal, Form, notification } from 'antd'
 import { apiCreate, apiUpdate } from '../../api'
 import { EnvironmentOutlined } from '@ant-design/icons'
 import uniqueid from 'uniqid'
@@ -41,9 +41,17 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
     }
 
     apiCreate(data, 'orders', id).then(() => {
-      apiUpdate(user.email, { cart: [] }, 'users').then(() => {
-        setCart([])
-      })
+      apiUpdate(user.email, { cart: [] }, 'users')
+        .then(() => {
+          setCart([])
+        })
+        .then(() => {
+          notification.success({
+            description:
+              'Спасибо за покупку! В течении 10 минут ожидайте звонка оператора.',
+            placement: 'top',
+          })
+        })
       onCancel()
     })
   }
@@ -83,7 +91,7 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
         </div>
         <Form
           form={form}
-          style={{ marginTop: '50px', width: '300px' }}
+          style={{ marginTop: '50px' }}
           onFinish={onFinish}
           layout="vertical"
           initialValues={{ remember: true }}
@@ -95,14 +103,14 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
             name="name"
             rules={[{ required: true, message: 'Введите имя получателя' }]}
           >
-            <Input type="text" />
+            <input type="text" />
           </Form.Item>
           <Form.Item
             label="Номер телефона"
             name="phoneNumber"
             rules={[{ required: true, message: 'Введите номер телефона' }]}
           >
-            <Input type="tel" />
+            <input type="tel" />
           </Form.Item>
           <div
             style={
@@ -122,7 +130,7 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
                 },
               ]}
             >
-              <Input type="text" />
+              <input type="text" />
             </Form.Item>
             <Form.Item
               label="Дом"
@@ -135,35 +143,35 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
                 },
               ]}
             >
-              <Input type="number" />
+              <input type="number" />
             </Form.Item>
             <Form.Item
               label="Квартира"
               name="apartment_number"
               rules={[{ required: false }]}
             >
-              <Input type="number" />
+              <input type="number" />
             </Form.Item>
             <Form.Item
               label="Подъезд"
               name="entrance_number"
               rules={[{ required: false }]}
             >
-              <Input type="number" />
+              <input type="number" />
             </Form.Item>
             <Form.Item
               label="Этаж"
               name="floor_number"
               rules={[{ required: false }]}
             >
-              <Input type="number" />
+              <input type="number" />
             </Form.Item>
             <Form.Item
               label="Домофон"
               name="interphone_number"
               rules={[{ required: false }]}
             >
-              <Input type="number" />
+              <input type="number" />
             </Form.Item>
           </div>
           <Form.Item
@@ -171,7 +179,7 @@ export const PizzaOrderModal = ({ showModal, onCancel }) => {
             name="comment"
             rules={[{ required: false }]}
           >
-            <Input />
+            <input />
           </Form.Item>
         </Form>
       </div>

@@ -1,16 +1,33 @@
 import React from 'react'
 import './Header.css'
 import { NavLink } from 'react-router-dom'
-import { UserOutlined } from '@ant-design/icons'
 import { useAuth } from '../../features/auth/ContextProvider'
-import { PageLoader } from '../PageLoader/PageLoader'
+import { Dropdown } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 export const DesktopHeader = () => {
-  const { isAuthenticated, user, isUserLoading } = useAuth()
+  const { isAuthenticated, user, logOut } = useAuth()
 
-  if (isUserLoading) {
-    return <PageLoader />
+  const navigate = useNavigate()
+
+  const onLogoutClick = () => {
+    navigate('/login')
+    logOut()
   }
+
+  const items = [
+    {
+      key: 1,
+      label: (
+        <span onClick={() => navigate('/admin')}>Панель администратора</span>
+      ),
+    },
+    {
+      key: 2,
+      label: <span onClick={onLogoutClick}>Выйти из аккаунта</span>,
+      danger: true,
+    },
+  ]
 
   return (
     <div className="header">
@@ -37,33 +54,25 @@ export const DesktopHeader = () => {
                 Пицца
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'header__active-link' : ''
-                }
-                to="/about"
-              >
-                О нас
-              </NavLink>
-            </li>
           </ul>
         </nav>
-        <NavLink
-          to={isAuthenticated ? '/admin/pizza' : '/login'}
-          className="header__user"
-        >
-          <UserOutlined style={{ fontSize: '28px', marginRight: '5px' }} />
-          <span className="header__user-text">
-            {isAuthenticated ? (
-              <span style={{ fontFamily: 'var(--font-oswald)' }}>
-                {user.email}
-              </span>
-            ) : (
-              'Войти'
-            )}
-          </span>
-        </NavLink>
+        {isAuthenticated ? (
+          <Dropdown menu={{ items }}>
+            <span className="header__user-text">
+              {isAuthenticated ? (
+                <span style={{ fontFamily: 'var(--font-oswald)' }}>
+                  {user.email}
+                </span>
+              ) : (
+                'Войти'
+              )}
+            </span>
+          </Dropdown>
+        ) : (
+          <NavLink className="header__user-text" to="/login">
+            Войти
+          </NavLink>
+        )}
       </div>
     </div>
   )

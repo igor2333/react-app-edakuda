@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './PizzaItem.css'
-import { Radio, Button } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
+import { Radio, Button, notification, Modal } from 'antd'
+import { PlusCircleOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { PizzaInfoModal } from '../PizzaInfoModal/PizzaInfoModal'
 import { apiUpdate } from '../../api'
 import { useAuth } from '../../features/auth/ContextProvider'
 import uniqueid from 'uniqid'
 import { useAdaptive } from '../../hooks'
+import { useNavigate } from 'react-router-dom'
 
 export const PizzaItem = ({
   image,
@@ -34,9 +35,12 @@ export const PizzaItem = ({
     },
   ]
 
-  const { user, cart, setCart } = useAuth()
-
+  const { user, cart, setCart, isAuthenticated } = useAuth()
+  const [isModalInfoShown, setIsModalInfoShown] = useState(false)
+  const [isErrorModalShown, setIsErrorModalShown] = useState(false)
   const [price, setPrice] = useState(sizesOptions[0].value)
+
+  const navigate = useNavigate()
 
   const handleChangeValue = ({ target: { value } }) => {
     setPrice(value)
@@ -52,9 +56,7 @@ export const PizzaItem = ({
 
   const size = getSize(sizesOptions)
 
-  const [isModalInfoShown, setIsModalInfoShown] = useState(false)
-
-  const addToCart = () => {
+  const onAddClick = () => {
     const id = uniqueid()
 
     const data = {
@@ -81,10 +83,17 @@ export const PizzaItem = ({
       },
     ])
 
-    apiUpdate(user.email, data, 'users')
+    apiUpdate(user.email, data, 'users').then(() => {
+      notification.success({
+        description: 'Пицца добавлена в корзину',
+        placement: 'top',
+        duration: 1,
+      })
+    })
   }
 
-  const handleInfoCancel = () => setIsModalInfoShown(false)
+  const handleInfoModalCancel = () => setIsModalInfoShown(false)
+  const handleErrorModalCancel = () => setIsErrorModalShown(false)
 
   return (
     <React.Fragment>
@@ -112,8 +121,15 @@ export const PizzaItem = ({
         </div>
         <div className="pizza-item__price">
           <Button
+            onClick={() => setIsModalInfoShown(true)}
+            style={{ marginRight: '10px' }}
+            shape="round"
+          >
+            <InfoCircleOutlined />
+          </Button>
+          <Button
             onClick={() => {
-              addToCart()
+              isAuthenticated ? onAddClick() : setIsErrorModalShown(true)
             }}
             shape="round"
           >
@@ -122,6 +138,16 @@ export const PizzaItem = ({
           </Button>
         </div>
       </div>
+      <Modal
+        title="Корзина доступна после авторизации"
+        open={isErrorModalShown}
+        onCancel={handleErrorModalCancel}
+        footer={[]}
+      >
+        <button className="form-button " onClick={() => navigate('/login')}>
+          Авторизоваться
+        </button>
+      </Modal>
       <PizzaInfoModal
         composition={composition}
         conditions={conditions}
@@ -131,7 +157,7 @@ export const PizzaItem = ({
         mediumPrice={mediumPrice}
         largePrice={largePrice}
         showModal={isModalInfoShown}
-        onCancel={handleInfoCancel}
+        onCancel={handleInfoModalCancel}
       />
     </React.Fragment>
   )

@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import './PizzaPage.css'
 import { Header } from '../../Header/Header'
 import { Footer } from '../../Footer/Footer'
 import { PizzaItem } from '../../PizzaItem/PizzaItem'
 import { apiGetAll } from '../../../api'
 import { Space, Button, Modal } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { PageLoader } from '../../PageLoader/PageLoader'
-import { useAuth } from '../../../features/auth/ContextProvider'
 import { ProductsCartModal } from '../../ProductsCartModal/ProductsCartModal'
 import { OpenCartButton } from '../../OpenCartButton/OpenCartButton'
 
@@ -16,12 +14,6 @@ export const PizzaPage = () => {
   const [pizzaData, setPizzaData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const { isAuthenticated: isAuthenticate } = useAuth()
-
-  const showModal = () => {
-    setIsModalOpen(true)
-  }
 
   const handleCancel = () => {
     setIsModalOpen(false)
@@ -59,8 +51,8 @@ export const PizzaPage = () => {
       <Header />
       <OpenCartButton onClick={() => setShowCartModal(true)} />
       <div className="pizza-page">
-        <h1>Вся пицца:</h1>
-        <Space style={{ marginTop: '25px' }} wrap="true" size="large">
+        <h1 style={{ marginBottom: '20px' }}>Вся пицца:</h1>
+        <Space wrap="true" size="large">
           {loading ? (
             <PageLoader />
           ) : (

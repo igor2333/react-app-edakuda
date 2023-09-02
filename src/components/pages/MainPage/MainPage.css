@@ -107,6 +107,11 @@
   opacity: 0.6;
 }
 
+.not-available {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .main-page__assortment-item > img {
   object-fit: contain;
 }

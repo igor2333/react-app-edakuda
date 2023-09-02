@@ -10,11 +10,13 @@ export const PrivateRoute = ({ children }) => {
     return <PageLoader />
   }
 
-  console.log(user)
-
   return (
     <React.Fragment>
-      {user.isAdmin ? children : <Navigate replace to="/login" />}
+      {isAuthenticated && user.isAdmin ? (
+        children
+      ) : (
+        <Navigate replace to="/login" />
+      )}
     </React.Fragment>
   )
 }

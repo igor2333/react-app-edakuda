@@ -39,3 +39,25 @@
 .info-block__content {
   font-size: 11px;
 }
+
+@media (max-width: 667px) {
+  .info-modal {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .info-block {
+    width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  .info-modal__image-container {
+    width: 100%;
+  }
+
+  .info-modal__image-text {
+    font-size: 20px;
+  }
+}

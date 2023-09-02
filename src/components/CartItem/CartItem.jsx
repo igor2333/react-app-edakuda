@@ -1,9 +1,10 @@
 import React from 'react'
 import './CartItem.css'
-import { Dropdown, Button, notification } from 'antd'
+import { Button } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { apiUpdate } from '../../api'
 import { useAuth } from '../../features/auth/ContextProvider'
+import { useAdaptive } from '../../hooks'
 
 export const CartItem = ({
   productName,
@@ -12,6 +13,7 @@ export const CartItem = ({
   productImage,
   id,
 }) => {
+  const { isMobile } = useAdaptive()
   const { user, cart, setCart } = useAuth()
 
   const onDelete = () => {
@@ -25,22 +27,8 @@ export const CartItem = ({
 
     apiUpdate(user.email, cartData, 'users').then(() => {
       setCart(filter)
-      notification.success({
-        message: 'Товар успешно удалён из корзины',
-      })
     })
   }
-
-  const items = [
-    {
-      key: '1',
-      label: (
-        <Button onClick={onDelete} danger="true">
-          Удалить
-        </Button>
-      ),
-    },
-  ]
 
   return (
     <div className="cart-item-container">
@@ -51,21 +39,24 @@ export const CartItem = ({
       />
       <div className="cart-item__text">
         <span>
-          Пицца "{productName}" {productSize}г.
+          Пицца "{productName}" {productSize}.
         </span>
         <span style={{ marginTop: '15px' }}>Цена: {productPrice}р.</span>
-        <span style={{ marginTop: '15px', fontSize: '13px', color: '#ADA3A4' }}>
-          Новый Континент
-        </span>
+        {isMobile ? null : (
+          <span
+            style={{ marginTop: '15px', fontSize: '13px', color: '#ADA3A4' }}
+          >
+            Новый Континент
+          </span>
+        )}
       </div>
       <div className="cart-item__delete">
-        <Dropdown menu={{ items }} placement="bottom">
-          <Button
-            shape="circle"
-            danger="true"
-            icon={<DeleteOutlined />}
-          ></Button>
-        </Dropdown>
+        <Button
+          onClick={onDelete}
+          shape="circle"
+          danger="true"
+          icon={<DeleteOutlined />}
+        ></Button>
       </div>
     </div>
   )

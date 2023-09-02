@@ -16,16 +16,13 @@ const App = () => {
         <Route path="/registration" element={<RegistrationContainer />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/pizza" element={<PizzaPage />} />
+        <Route path="/admin" element={<PrivateRoute children={<Admin />} />} />
         <Route
-          path="/admin/pizza"
-          element={<PrivateRoute children={<Admin />} />}
-        />
-        <Route
-          path="/admin/pizza/create"
+          path="/admin/create"
           element={<PrivateRoute children={<AdminItemPage />} />}
         />
         <Route
-          path="/admin/pizza/:pizzaId"
+          path="/admin/:pizzaId"
           element={<PrivateRoute children={<AdminItemPage />} />}
         />
       </Routes>

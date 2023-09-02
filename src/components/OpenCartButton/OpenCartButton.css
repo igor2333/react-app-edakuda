@@ -1,7 +1,7 @@
 .open-cart-button {
   width: 40px;
   height: 50px;
-  position: fixed;
+  position: absolute;
   cursor: pointer;
   right: 20px;
 }

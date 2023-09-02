@@ -5,6 +5,7 @@ import './PizzaInfoModal.css'
 import uniqueid from 'uniqid'
 import { apiUpdate } from '../../api'
 import { useAuth } from '../../features/auth/ContextProvider'
+import { useAdaptive } from '../../hooks'
 
 export const PizzaInfoModal = ({
   image,
@@ -33,6 +34,8 @@ export const PizzaInfoModal = ({
   ]
 
   const [price, setPrice] = useState(sizesOptions[0].value)
+
+  const { isMobile } = useAdaptive()
 
   const handleChangeValue = ({ target: { value } }) => {
     setPrice(value)
@@ -99,6 +102,7 @@ export const PizzaInfoModal = ({
                   options={sizesOptions}
                   optionType="button"
                   buttonStyle="solid"
+                  size={isMobile ? 'small' : 'medium'}
                   value={price}
                   onChange={handleChangeValue}
                 />

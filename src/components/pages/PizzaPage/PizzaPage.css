@@ -1,5 +1,5 @@
 .pizza-page {
-  padding: 0 20px;
   max-width: var(--main-width);
   margin: 0 auto;
+  padding: 0 20px;
 }

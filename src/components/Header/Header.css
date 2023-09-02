@@ -45,6 +45,9 @@
 
 .header__user-text {
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .header__mobile-ul {
@@ -59,6 +62,7 @@
 
 .header__mobile-container {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
 }

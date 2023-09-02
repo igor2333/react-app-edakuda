@@ -3,12 +3,23 @@ import { CSSTransition } from 'react-transition-group'
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons'
 import { useAuth } from '../../features/auth/ContextProvider'
 import { NavLink } from 'react-router-dom'
+import { ProductsCartModal } from '../ProductsCartModal/ProductsCartModal'
+import { useNavigate } from 'react-router-dom'
 
 export const MobileHeader = () => {
   const [isOpenMenu, toggleMenu] = useState(false)
   const [isOpenSubMenu, toggleSubMenu] = useState(false)
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
-  const { cart } = useAuth()
+  const onCartCancel = () => setIsCartOpen(false)
+
+  const { cart, isAuthenticated, logOut, user } = useAuth()
+  const navigate = useNavigate()
+
+  const onLogoutClick = () => {
+    navigate('/login')
+    logOut()
+  }
 
   const documentKeydownListener = (event) => {
     if (event.key === 'Escape') {
@@ -58,7 +69,12 @@ export const MobileHeader = () => {
           )}
         </button>
         <div>
-          <span>Корзина: {cart.length}</span>
+          <span
+            style={{ cursor: 'pointer' }}
+            onClick={() => setIsCartOpen(true)}
+          >
+            Корзина: {cart.length}
+          </span>
         </div>
       </div>
       <CSSTransition
@@ -79,40 +95,66 @@ export const MobileHeader = () => {
                 К меню
               </button>
             ) : (
-              <nav className="header__nav">
-                <ul className="header__mobile-ul">
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? 'header__active-link' : ''
-                      }
-                      to="/"
-                    >
-                      Главная
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? 'header__active-link' : ''
-                      }
-                      to="/pizza"
-                    >
-                      Пицца
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? 'header__active-link' : ''
-                      }
-                      to="/about"
-                    >
-                      О нас
-                    </NavLink>
-                  </li>
-                </ul>
-              </nav>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <nav className="header__nav">
+                  <ul className="header__mobile-ul">
+                    <li>
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive ? 'header__active-link' : ''
+                        }
+                        to="/"
+                      >
+                        Главная
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive ? 'header__active-link' : ''
+                        }
+                        to="/pizza"
+                      >
+                        Пицца
+                      </NavLink>
+                    </li>
+                    {!isAuthenticated ? (
+                      <li>
+                        <NavLink
+                          className={({ isActive }) =>
+                            isActive ? 'header__active-link' : ''
+                          }
+                          to="/login"
+                        >
+                          Войти
+                        </NavLink>
+                      </li>
+                    ) : (
+                      <>
+                        <li>
+                          <NavLink to="/login" onClick={onLogoutClick}>
+                            Выйти из аккаунта
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/admin">Панель администратора</NavLink>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </nav>
+                {isAuthenticated ? (
+                  <span style={{ margin: '20px 0', fontSize: '15px' }}>
+                    ({user.email})
+                  </span>
+                ) : null}
+              </div>
             )}
 
             <div
@@ -126,6 +168,7 @@ export const MobileHeader = () => {
           </div>
         </div>
       </CSSTransition>
+      <ProductsCartModal showModal={isCartOpen} onCancel={onCartCancel} />
     </header>
   )
 }

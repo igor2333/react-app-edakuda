@@ -6,7 +6,6 @@ import { AdminItem } from '../../AdminItem/AdminItem'
 import { Space, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { PageLoader } from '../../PageLoader/PageLoader'
-import { BackArrow } from '../../BackArrow/BackArrow'
 
 export const Admin = () => {
   const [pizzaData, setPizzaData] = useState(null)
@@ -30,7 +29,7 @@ export const Admin = () => {
         <div className="admin-main__pizza-list">
           <h1>Панель администратора</h1>
           <Button
-            onClick={() => navigate('/admin/pizza/create')}
+            onClick={() => navigate('/admin/create')}
             style={{ display: 'block', marginTop: '10px' }}
           >
             Создать новую пиццу

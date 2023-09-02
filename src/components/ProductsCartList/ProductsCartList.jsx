@@ -10,7 +10,6 @@ export const ProductsCartList = () => {
   const [isOrderModalShown, setIsOrderModalShown] = useState(false)
 
   const { cart, isUserLoading } = useAuth()
-  const { user } = useAuth()
 
   const totalPriceCalc = cart.reduce(
     (acc, current) => acc + Number(current.pizzaPrice),

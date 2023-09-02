@@ -1,3 +1,9 @@
 .empty-cart-text {
   font-size: 30px;
 }
+
+@media (max-width: 365px) {
+  .empty-cart-text {
+    font-size: 18px;
+  }
+}

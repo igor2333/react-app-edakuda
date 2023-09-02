@@ -6,16 +6,12 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
-import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { apiGetSingle } from '../../api'
 
 const authContext = createContext({
   isAuthenticated: false,
   isUserLoading: true,
-  cartCount: null,
   user: null,
-  cart: [],
-  setCart: void 0,
   createWithEmailAndPassword: () => Promise.reject(null),
   loginWithEmailAndPassword: () => Promise.reject(null),
   logOut: () => void 0,
@@ -27,7 +23,6 @@ export const ContextProvider = ({ children, firebaseApp }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
   const [isUserLoading, setIsUserLoading] = useState(true)
   const [user, setUser] = useState(null)
-  const [cartCount, setCartCount] = useState(0)
   const [auth] = useState(getAuth(firebaseApp))
 
   const [cart, setCart] = useState([])
@@ -81,10 +76,8 @@ export const ContextProvider = ({ children, firebaseApp }) => {
       value={{
         isAuthenticated: isAuthenticated,
         isUserLoading: isUserLoading,
-        setCartCount: (count) => setCartCount(count),
-        cartCount: cartCount,
-        cart: cart,
-        setCart: (pizza) => setCart(pizza),
+        cart,
+        setCart,
         user,
         createWithEmailAndPassword,
         loginWithEmailAndPassword,

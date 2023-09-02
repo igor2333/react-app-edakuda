@@ -1,6 +1,7 @@
 .admin-item-page {
   max-width: var(--main-width);
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .admin-item-page__form {
@@ -9,11 +10,9 @@
 }
 
 .admin-item-page__form > label, .admin-item-page__form-sizes > div > label {
-  margin-top: 30px;
-}
-
-.admin-item-page__form-sizes > div, .admin-item-page__form-sizes > h3 {
-  margin-top: 40px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .admit-item-page__image {
@@ -27,16 +26,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 25px;
-  width: 635px;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .admin-item-page__button {
   font-family: var(--font-zopa);
-  padding: 15px;
+  padding: 10px;
+  margin: 20px 0;
   border-radius: 10px;
   font-size: 18px;
   background: #1D252A;
+  width: 170px;
   color: #fff;
   transition: all 0.2s;
 }
@@ -45,8 +46,4 @@
   transform: scale(1.1);
   transition: 0.3s;
   text-decoration: underline;
-}
-
-.admin-item-page__toggler {
-
 }

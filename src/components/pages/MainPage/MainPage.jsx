@@ -1,7 +1,6 @@
 import React from 'react'
 import './MainPage.css'
 import {
-  CarOutlined,
   PhoneOutlined,
   ClockCircleOutlined,
   ShoppingCartOutlined,
@@ -10,9 +9,14 @@ import { NavLink } from 'react-router-dom'
 import { Logo } from '../../Logo/Logo'
 import { useAuth } from '../../../features/auth/ContextProvider'
 import { Page } from '../../Page/Page'
+import { PageLoader } from '../../PageLoader/PageLoader'
 
 export const MainPage = () => {
-  const { cart } = useAuth()
+  const { cart, isUserLoading } = useAuth()
+
+  if (isUserLoading) {
+    return <PageLoader />
+  }
 
   return (
     <Page>
@@ -72,7 +76,7 @@ export const MainPage = () => {
               </span>
             </div>
           </NavLink>
-          <NavLink to="/cakes" className="main-page__assortment-item">
+          <NavLink to="/" className="main-page__assortment-item not-available">
             <img src={require('../../../images/cake.png')} alt="pizzas" />
             <div className="main-page__assortment-item-text-container">
               <span className="main-page__assortment-item-text-primary">
@@ -85,7 +89,7 @@ export const MainPage = () => {
             </div>
           </NavLink>
           <div className="main-page__line"></div>
-          <NavLink to="/" className="main-page__assortment-item">
+          <NavLink to="/" className="main-page__assortment-item not-available">
             <img src={require('../../../images/hamburger.png')} alt="pizzas" />
             <div className="main-page__assortment-item-text-container">
               <span className="main-page__assortment-item-text-primary">
@@ -97,7 +101,7 @@ export const MainPage = () => {
               </span>
             </div>
           </NavLink>
-          <NavLink to="/" className="main-page__assortment-item">
+          <NavLink to="/" className="main-page__assortment-item not-available">
             <img src={require('../../../images/rolls.png')} alt="pizzas" />
             <div className="main-page__assortment-item-text-container">
               <span className="main-page__assortment-item-text-primary">
