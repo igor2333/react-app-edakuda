@@ -7,13 +7,13 @@ import {
   apiUpdate,
   apiCreate,
   apiDelete,
-} from '../../../api'
+} from '../../../../api'
 import { Modal, notification, Switch } from 'antd'
 import { getImage, getErrors } from './utils'
 import { useNavigate } from 'react-router-dom'
 import uniqueid from 'uniqid'
-import { PageLoader } from '../../PageLoader/PageLoader'
-import { Page } from '../../Page/Page'
+import { PageLoader } from '../../../../components/PageLoader/PageLoader'
+import { Page } from '../../../../components/Page/Page'
 
 export const AdminItemPage = () => {
   const params = useParams()

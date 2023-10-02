@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './Admin.css'
-import { Page } from '../../Page/Page'
-import { apiGetAll } from '../../../api'
-import { AdminItem } from '../../AdminItem/AdminItem'
+import { PageLoader } from '../../../../components/PageLoader/PageLoader'
+import { Page } from '../../../../components/Page/Page'
+import { apiGetAll } from '../../../../api'
+import { AdminItem } from '../../../../components/AdminItem/AdminItem'
 import { Space, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { PageLoader } from '../../PageLoader/PageLoader'
 
 export const Admin = () => {
   const [pizzaData, setPizzaData] = useState(null)
